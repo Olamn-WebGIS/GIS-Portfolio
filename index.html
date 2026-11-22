@@ -45,8 +45,12 @@
     .hero { display: grid; min-height: 590px; grid-template-columns: minmax(340px, .87fr) 1.13fr; color: var(--white); background: var(--ink); }
     .hero-copy { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 72px max(44px, calc((100vw - 1180px) / 2)); padding-right: 36px; }
     .hero .eyebrow { color: var(--lime); }
-    h1 { max-width: 580px; margin: 0; font: 600 clamp(46px, 5.2vw, 72px)/1.02 var(--display); letter-spacing: 0; }
+    h1 { max-width: 580px; margin: 0; font: 600 clamp(34px, 3.5vw, 48px)/1.02 var(--display); letter-spacing: 0; }
     h1 span { color: var(--lime); }
+    .hero-title-row { display: grid; width: 100%; grid-template-columns: minmax(0, 1fr) 80px; align-items: center; gap: 14px; }
+    .hero-title-row h1 { min-width: 0; max-width: none; }
+    .profile-portrait { width: 80px; margin: 0; }
+    .profile-portrait img { display: block; width: 100%; aspect-ratio: 1; border: 2px solid rgba(211,239,115,.8); border-radius: 50%; object-fit: cover; object-position: center 26%; }
     .hero-intro { max-width: 430px; margin: 22px 0 26px; color: #bdc9c4; font-size: 15px; line-height: 1.8; }
     .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 19px; }
     .button-primary { display: inline-flex; min-height: 44px; align-items: center; gap: 10px; padding: 0 17px; border: 1px solid var(--lime); border-radius: 3px; color: var(--ink); background: var(--lime); font-size: 12px; font-weight: 700; transition: background .2s, color .2s; }
@@ -59,8 +63,12 @@
 
     .hero-visual { position: relative; min-height: 590px; overflow: hidden; display: grid; place-items: center; background: #31514c; }
     .contour-art { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .35; }
-    .profile-portrait { position: relative; z-index: 1; width: min(360px, 68%); margin: 0; }
-    .profile-portrait img { display: block; width: 100%; aspect-ratio: 2 / 3; border: 1px solid rgba(255,255,255,.35); object-fit: cover; object-position: center 26%; box-shadow: 0 16px 42px rgba(0,0,0,.2); }
+    .visual-caption { position: relative; z-index: 1; display: flex; width: min(390px, 76%); flex-direction: column; align-items: flex-start; color: var(--white); }
+    .visual-caption .visual-kicker, .visual-caption .visual-footer { color: var(--lime); font: 400 9px var(--mono); text-transform: uppercase; }
+    .visual-caption strong { margin: 20px 0; font: 600 clamp(36px, 4vw, 56px)/1.05 var(--display); }
+    .visual-caption { position: relative; z-index: 1; display: flex; width: min(390px, 76%); flex-direction: column; align-items: flex-start; color: var(--white); }
+    .visual-caption .visual-kicker, .visual-caption .visual-footer { color: var(--lime); font: 400 9px var(--mono); text-transform: uppercase; }
+    .visual-caption strong { margin: 20px 0; font: 600 clamp(36px, 4vw, 56px)/1.05 var(--display); }
 
     .section { padding: 94px 0; }
     .section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 38px; }
@@ -115,7 +123,9 @@
       .nav-links .nav-contact { padding: 8px 11px; }
       .hero { display: flex; flex-direction: column; }
       .hero-copy { min-height: 435px; padding: 52px 25px 42px; }
-      h1 { max-width: 500px; font-size: clamp(47px, 12vw, 66px); }
+      h1 { max-width: none; font-size: clamp(30px, 8vw, 38px); }
+      .hero-title-row { grid-template-columns: minmax(0, 1fr) 68px; gap: 10px; }
+      .profile-portrait { width: 68px; }
       .hero-intro { max-width: 425px; font-size: 14px; }
       .hero-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; margin-top: 22px; }
       .hero-meta span + span::before { content: none; margin: 0; }
@@ -123,6 +133,7 @@
       .hero-actions .button-primary, .hero-actions .text-link { width: 100%; justify-content: center; }
       .hero-actions .text-link { min-height: 40px; }
       .hero-visual { min-height: 350px; }
+      .visual-caption { width: 78%; }
       .section { padding: 69px 0; }
       .section-heading { display: block; margin-bottom: 26px; }
       .section-heading h2 { font-size: 37px; }
@@ -160,7 +171,10 @@
     <section class="hero" id="home" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="eyebrow">Geospatial scientist</p>
-        <h1 id="hero-title">Favour<br>Olamilekan<br><span>Adeoye</span></h1>
+        <div class="hero-title-row">
+          <h1 id="hero-title">Favour<br>Olamilekan<br><span>Adeoye</span></h1>
+          <figure class="profile-portrait"><img src="images/Profilepic.png" alt="Professional portrait of Favour Olamilekan Adeoye"></figure>
+        </div>
         <p class="hero-intro">Geospatial scientist with 5+ years of experience. Previously worked with LAGIS (Lagos State Geospatial Information Service).</p>
         <div class="hero-meta"><span>Nigeria</span><span>Freelance + job opportunities</span><span>Remote · hybrid · on-site</span></div>
         <div class="hero-actions">
@@ -184,7 +198,7 @@
           <circle cx="612" cy="360" r="7" fill="#d3ef73"/>
           <path d="M612 208v304M460 360h304" stroke="#fffefa" stroke-opacity=".3" stroke-width="1"/>
         </svg>
-        <figure class="profile-portrait"><img src="images/Profilepic.png" alt="Professional portrait of Favour Olamilekan Adeoye"></figure>
+        <div class="visual-caption"><span class="visual-kicker">5+ years of experience</span><strong>Geospatial<br>science</strong><span class="visual-footer">Nigeria · Open to opportunities</span></div>
       </div>
     </section>
 
