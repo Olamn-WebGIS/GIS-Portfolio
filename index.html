@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#162d2b">
+  <meta name="description" content="Favour Olamilekan Adeoye is a geospatial scientist. Explore his portfolio and get in touch.">
+  <title>Favour Olamilekan Adeoye | Geospatial Scientist</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      color-scheme: light;
+      --ink: #162d2b;
+      --ink-soft: #31514c;
+      --paper: #f5f4ed;
+      --white: #fffefa;
+      --line: #dedfd5;
+      --muted: #687571;
+      --lime: #d3ef73;
+      --coral: #e87959;
+      --mono: 'DM Mono', monospace;
+      --sans: 'DM Sans', sans-serif;
+      --display: 'Manrope', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 82px; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(--sans); font-size: 15px; line-height: 1.65; }
+    a { color: inherit; text-decoration: none; }
+    button { color: inherit; font: inherit; }
+    .wrap { width: min(1180px, calc(100% - 64px)); margin-inline: auto; }
+    .eyebrow { margin: 0 0 15px; color: var(--muted); font: 500 10px/1.5 var(--mono); letter-spacing: 0; text-transform: uppercase; }
+
+    .site-header { position: sticky; z-index: 1000; top: 0; height: 68px; border-bottom: 1px solid rgba(22,45,43,.12); background: rgba(245,244,237,.94); backdrop-filter: blur(14px); }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 100%; }
+    .wordmark { display: inline-flex; align-items: center; gap: 10px; font: 800 14px var(--display); }
+    .brand-mark { display: grid; width: 29px; aspect-ratio: 1; place-items: center; border-radius: 50%; color: var(--lime); background: var(--ink); }
+    .brand-mark svg { width: 15px; height: 15px; }
+    .nav-links { display: flex; align-items: center; gap: 31px; color: var(--ink-soft); font-size: 12px; font-weight: 600; }
+    .nav-links a:hover { color: #a64e37; }
+    .nav-links .nav-contact { padding: 9px 14px; border: 1px solid var(--ink); border-radius: 3px; color: var(--ink); }
+    .nav-contact:hover { color: var(--white) !important; background: var(--ink); }
+
+    .hero { display: grid; min-height: 590px; grid-template-columns: minmax(340px, .87fr) 1.13fr; color: var(--white); background: var(--ink); }
+    .hero-copy { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 72px max(44px, calc((100vw - 1180px) / 2)); padding-right: 36px; }
+    .hero .eyebrow { color: var(--lime); }
+    h1 { max-width: 580px; margin: 0; font: 600 clamp(46px, 5.2vw, 72px)/1.02 var(--display); letter-spacing: 0; }
+    h1 span { color: var(--lime); }
+    .hero-intro { max-width: 430px; margin: 22px 0 26px; color: #bdc9c4; font-size: 15px; line-height: 1.8; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 19px; }
+    .button-primary { display: inline-flex; min-height: 44px; align-items: center; gap: 10px; padding: 0 17px; border: 1px solid var(--lime); border-radius: 3px; color: var(--ink); background: var(--lime); font-size: 12px; font-weight: 700; transition: background .2s, color .2s; }
+    .button-primary:hover { color: var(--lime); background: transparent; }
+    .button-primary svg, .text-link svg { width: 14px; height: 14px; }
+    .text-link { display: inline-flex; align-items: center; gap: 8px; color: #e1e9e4; font-size: 12px; font-weight: 600; }
+    .text-link:hover { color: var(--lime); }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 36px; color: #a8b7b0; font: 400 9px var(--mono); text-transform: uppercase; }
+    .hero-meta span + span::before { margin-right: 20px; color: var(--coral); content: '/'; }
+
+    .hero-visual { position: relative; min-height: 590px; overflow: hidden; display: grid; place-items: center; background: #31514c; }
+    .contour-art { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .visual-caption { position: relative; z-index: 1; display: flex; width: min(390px, 76%); flex-direction: column; align-items: flex-start; color: var(--white); }
+    .visual-caption .visual-kicker, .visual-caption .visual-footer { color: var(--lime); font: 400 9px var(--mono); text-transform: uppercase; }
+    .visual-caption strong { margin: 20px 0; font: 600 clamp(36px, 4vw, 56px)/1.05 var(--display); }
+
+    .section { padding: 94px 0; }
+    .section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 38px; }
+    .section-heading h2 { max-width: 590px; margin: 0; font: 600 clamp(34px, 4vw, 49px)/1.12 var(--display); letter-spacing: 0; }
+    .section-heading p { max-width: 345px; margin: 0 0 3px; color: var(--muted); font-size: 13px; }
+    .projects { background: var(--paper); }
+    .work-card { display: grid; grid-template-columns: 245px 1fr; overflow: hidden; border: 1px solid var(--line); background: var(--white); }
+    .work-card-thumbnail { min-width: 0; overflow: hidden; background: var(--white); }
+    .work-card-thumbnail img { display: block; width: 100%; height: auto; aspect-ratio: 520 / 542; object-fit: cover; }
+    .work-card-content { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 27px 30px; }
+    .work-card-content h3 { margin: 0; font: 700 22px/1.3 var(--display); }
+    .work-card-content p { max-width: 560px; margin: 9px 0 0; color: var(--muted); font-size: 12px; line-height: 1.75; }
+    .work-card-facts { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 15px; }
+    .work-card-facts span { padding: 5px 8px; border: 1px solid var(--line); color: var(--ink-soft); font: 9px var(--mono); }
+    .case-link { display: inline-flex; min-height: 42px; flex: 0 0 auto; align-items: center; gap: 9px; padding: 0 12px; border: 1px solid var(--ink); border-radius: 3px; color: var(--white); background: var(--ink); font-size: 11px; font-weight: 700; }
+    .case-link:hover { color: var(--ink); background: var(--lime); border-color: var(--lime); }
+    .case-link svg { width: 14px; height: 14px; }
+
+    .profile-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .profile-card { padding: 23px 24px; border: 1px solid var(--line); background: var(--white); }
+    .profile-card .eyebrow { margin-bottom: 12px; }
+    .profile-card h3 { margin: 0; font: 700 18px/1.4 var(--display); }
+    .profile-card p { margin: 8px 0 0; color: var(--muted); font-size: 12px; line-height: 1.75; }
+    .profile-card.skills-card { grid-column: 1 / -1; }
+    .skills-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .skills-list span { padding: 6px 9px; border: 1px solid var(--line); color: var(--ink-soft); font: 9px var(--mono); }
+
+    .contact { padding: 69px 0; color: var(--white); background: #31514c; }
+    .contact-inner { display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+    .contact .eyebrow { margin-bottom: 9px; color: var(--lime); }
+    .contact h2 { max-width: 560px; margin: 0; font: 600 clamp(30px, 4vw, 43px)/1.15 var(--display); }
+    .contact-action { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 10px; padding: 13px 15px; border: 1px solid var(--lime); border-radius: 3px; color: var(--ink); background: var(--lime); font-size: 12px; font-weight: 700; }
+    .contact-action:hover { color: var(--lime); background: transparent; }
+    .contact-action svg { width: 15px; height: 15px; }
+    footer { padding: 22px 0; color: #b5c3bd; background: var(--ink); font-size: 10px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+    .footer-links { display: flex; gap: 18px; }
+    .footer-links a:hover { color: var(--lime); }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: .92fr 1.08fr; min-height: 550px; }
+      .hero-copy { padding-left: 32px; }
+      .hero-visual { min-height: 550px; }
+      .hero-meta { gap: 8px 10px; }
+      .hero-meta span + span::before { margin-right: 10px; }
+    }
+    @media (max-width: 680px) {
+      .wrap { width: min(100% - 38px, 520px); }
+      .site-header { height: 60px; }
+      .nav-links { gap: 16px; }
+      .nav-links a:not(.nav-contact) { display: none; }
+      .nav-links .nav-contact { padding: 8px 11px; }
+      .hero { display: flex; flex-direction: column; }
+      .hero-copy { min-height: 435px; padding: 52px 25px 42px; }
+      h1 { max-width: 500px; font-size: clamp(47px, 12vw, 66px); }
+      .hero-intro { max-width: 425px; font-size: 14px; }
+      .hero-meta { margin-top: 27px; }
+      .hero-visual { min-height: 350px; }
+      .visual-caption { width: 78%; }
+      .section { padding: 69px 0; }
+      .section-heading { display: block; margin-bottom: 26px; }
+      .section-heading h2 { font-size: 37px; }
+      .section-heading p { margin-top: 13px; }
+      .work-card { grid-template-columns: 1fr; }
+      .work-card-thumbnail img { height: 300px; object-fit: contain; }
+      .work-card-content { align-items: flex-start; flex-direction: column; gap: 18px; padding: 22px; }
+      .about-grid { grid-template-columns: 1fr; gap: 21px; }
+      .contact { padding: 56px 0; }
+      .contact-inner { align-items: flex-start; flex-direction: column; gap: 23px; }
+      .contact h2 { font-size: 36px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; gap: 9px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="Main navigation">
+      <a class="wordmark" href="#home" aria-label="Favour Olamilekan Adeoye home">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M10 2.5 16 15l-6-3.1L4 15 10 2.5Z" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="9.5" r="1.4" fill="currentColor"/></svg></span>
+        FAVOUR OLAMILEKAN ADEOYE
+      </a>
+      <div class="nav-links">
+        <a href="#work">Selected work</a>
+        <a href="#about">About</a>
+        <a class="nav-contact" href="#contact">Let's talk <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Geospatial scientist</p>
+        <h1 id="hero-title">Favour<br>Olamilekan<br><span>Adeoye</span></h1>
+        <p class="hero-intro">Geospatial scientist with 5+ years of experience. Previously worked with LAGIS (Lagos State Geospatial Information Service).</p>
+        <div class="hero-meta"><span>Nigeria</span><span>Freelance + job opportunities</span><span>Remote · hybrid · on-site</span></div>
+        <div class="hero-actions">
+          <a class="button-primary" href="#work">View selected work <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="text-link" href="#contact">Start a conversation <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+      <div class="hero-visual" role="img" aria-label="Abstract topographic contour illustration">
+        <svg class="contour-art" viewBox="0 0 900 820" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <g fill="none" stroke="#d3ef73" stroke-opacity=".42" stroke-width="1.2">
+            <path d="M-90 140C90 25 217 50 309 124s177 83 274 25 209-88 396 1"/><path d="M-79 166C90 53 214 76 307 148s178 86 274 26 210-86 393 5"/>
+            <path d="M-73 194C92 80 215 103 306 174s179 86 273 27 211-85 392 9"/><path d="M-67 222C92 110 214 131 304 201s179 88 272 29 212-83 391 13"/>
+            <path d="M-55 252C91 140 212 158 302 229s180 88 272 31 213-81 389 17"/><path d="M-44 285C93 171 211 187 300 260s180 88 271 32 214-80 388 22"/>
+            <path d="M-39 322C94 205 210 222 298 294s181 90 270 34 214-78 386 27"/><path d="M-29 359C95 242 209 257 296 329s180 90 270 37 215-77 384 31"/>
+            <path d="M-17 401C96 281 208 293 294 366s181 91 269 40 216-74 382 35"/><path d="M-7 443C96 321 207 333 292 405s181 92 268 43 216-72 380 40"/>
+            <path d="M4 489C97 360 204 373 290 447s181 94 267 46 217-69 378 44"/><path d="M16 536C98 406 205 414 288 489s180 96 267 51 217-67 376 49"/>
+            <path d="M26 583C98 453 204 459 286 535s181 97 266 55 218-64 374 54"/><path d="M39 634C99 501 201 508 284 585s181 99 265 59 218-60 372 60"/>
+            <path d="M53 688C100 551 201 558 282 636s181 102 264 64 219-56 370 67"/><path d="M72 745C105 608 199 610 280 690s180 105 263 70 219-52 366 73"/>
+          </g>
+          <circle cx="612" cy="360" r="128" fill="none" stroke="#e87959" stroke-opacity=".8" stroke-width="1"/>
+          <circle cx="612" cy="360" r="7" fill="#d3ef73"/>
+          <path d="M612 208v304M460 360h304" stroke="#fffefa" stroke-opacity=".3" stroke-width="1"/>
+        </svg>
+        <div class="visual-caption"><span class="visual-kicker">5+ years of experience</span><strong>Geospatial<br>science</strong><span class="visual-footer">Nigeria · Open to opportunities</span></div>
+      </div>
+    </section>
+
+    <section class="section projects" id="work">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><p class="eyebrow">Portfolio</p><h2>Selected work</h2></div>
+        </div>
+        <article class="work-card">
+          <div class="work-card-thumbnail"><img src="images/ondo-phc-thumbnail.png" alt="Choropleth map showing primary healthcare access across Ondo State"></div>
+          <div class="work-card-content">
+            <div>
+              <h3>Spatial Equity of Primary Healthcare in Ondo State</h3>
+              <p>An LGA-level analysis of PHC coverage across 18 local government areas, comparing facility distribution with population.</p>
+              <div class="work-card-facts"><span>840 PHC points</span><span>18 LGAs</span><span>WorldPop</span></div>
+            </div>
+            <a class="case-link" href="ondo-phc.html">View Case Study <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><p class="eyebrow">Profile</p><h2>Experience &amp; expertise</h2></div>
+          <p>Based in Nigeria and open to freelance work and job opportunities, remotely, hybrid, or on-site.</p>
+        </div>
+        <div class="profile-grid">
+          <article class="profile-card">
+            <p class="eyebrow">Experience</p>
+            <h3>Geospatial scientist · 5+ years</h3>
+            <p>Previously worked with LAGIS (Lagos State Geospatial Information Service).</p>
+          </article>
+          <article class="profile-card">
+            <p class="eyebrow">Education</p>
+            <h3>B.Tech. in Remote Sensing and GIS</h3>
+            <p>Federal University of Technology, Akure</p>
+            <p>Language: English</p>
+          </article>
+          <article class="profile-card skills-card">
+            <p class="eyebrow">Tools &amp; technologies</p>
+            <div class="skills-list" aria-label="Technical skills">
+              <span>QGIS</span><span>Google Earth Pro</span><span>ArcGIS Pro</span><span>Leaflet</span>
+              <span>Google Earth Engine</span><span>SNAP</span><span>Python</span><span>JavaScript</span>
+              <span>PostGIS</span><span>GeoPandas</span><span>Map dashboards</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="wrap contact-inner">
+        <div><p class="eyebrow">Have a question worth mapping?</p><h2>Let’s find a clearer way forward.</h2></div>
+        <a class="contact-action" href="mailto:olamilekanfavour03@gmail.com">Get in touch <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner"><span>© <span id="year"></span> Favour Olamilekan Adeoye · Geospatial scientist</span><div class="footer-links"><a href="mailto:olamilekanfavour03@gmail.com">Email</a></div></div>
+  </footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
