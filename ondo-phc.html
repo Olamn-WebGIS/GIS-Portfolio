@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#162d2b">
   <meta name="description" content="A geospatial analysis of primary healthcare access across Ondo State, Nigeria.">
-  <title>Spatial Equity of Primary Healthcare in Ondo State | Favour Olamilekan Adeoye</title>
+  <title>Primary Healthcare Accessibility and Service Equity Analysis in Ondo State | Favour Olamilekan Adeoye</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
 
@@ -104,6 +104,8 @@
     .finding { padding-bottom: 56px; }
     .finding-copy { max-width: 930px; margin: 0; padding: 22px 24px; border-left: 3px solid var(--coral); color: var(--ink-soft); background: var(--white); font-size: 16px; line-height: 1.8; }
     .finding-copy strong { color: var(--ink); }
+    .finding-impact { max-width: 930px; margin: 16px 0 0; padding: 17px 22px; border-left: 3px solid var(--ink-soft); color: var(--muted); font-size: 13px; line-height: 1.8; }
+    .finding-impact strong { color: var(--ink); }
 
     .recommendation { padding-block: 62px; color: var(--white); background: var(--ink); }
     .recommendation .eyebrow { color: var(--lime); }
@@ -142,7 +144,9 @@
       .brand-mark { width: 25px; }
       .back-link { font-size: 11px; }
       .data-table th, .data-table td { padding: 13px 12px; }
-      .footer-inner { flex-direction: column; }
+      .footer-inner { align-items: center; gap: 8px; }
+      .footer-inner > span, .footer-inner > a { min-width: 0; flex: 1 1 0; }
+      .footer-inner > a { overflow-wrap: anywhere; text-align: right; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
@@ -165,13 +169,13 @@
       <div class="wrap">
         <div class="case-intro">
           <p class="eyebrow">Primary healthcare · Ondo State, Nigeria</p>
-          <h1>Spatial Equity of Primary Healthcare in Ondo State</h1>
-          <p class="summary">A statewide look at how primary healthcare access varies across Ondo State's local government areas.</p>
+          <h1>Primary Healthcare Accessibility and Service Equity Analysis in Ondo State</h1>
+          <p class="summary">Using PHC facility locations, WorldPop population data, and GIS accessibility analysis, this project evaluated whether residents across Ondo State have equitable access to primary healthcare. Results show that 17 of 18 LGAs meet the benchmark of 1 PHC per 10,000 people, while Akure South remains underserved and should be prioritized for future healthcare investments.</p>
         </div>
         <figure>
           <div class="asset-frame poster-frame">
             <div class="asset-placeholder"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="5" y="4" width="30" height="32" rx="1" stroke="currentColor" stroke-width="1.4"/><path d="M11 12h18M11 18h18M11 24h11M11 30h14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><strong>Project poster pending</strong><span>Expected file: <code>images/Postal%20Final.png</code>.</span></div>
-            <img src="images/Postal%20Final.png" alt="Spatial Equity of Primary Healthcare in Ondo State project poster" style="width:100%; border-radius:12px;" data-asset>
+            <img src="images/Postal%20Final.png" alt="Primary Healthcare Accessibility and Service Equity Analysis in Ondo State project poster" style="width:100%; border-radius:12px;" data-asset>
           </div>
           <figcaption class="image-caption">Project overview poster</figcaption>
         </figure>
@@ -180,7 +184,7 @@
 
     <section class="section" aria-labelledby="problem-title">
       <div class="wrap">
-        <div class="section-heading"><p class="eyebrow">01 / The problem</p><h2 id="problem-title">Who is left behind?</h2></div>
+        <div class="section-heading"><p class="eyebrow">01 / The problem</p><h2 id="problem-title">Where are healthcare access gaps?</h2></div>
         <blockquote class="problem-quote">Access to healthcare in Ondo State is unequal, but no one had mapped it by PHC per 10,000 people. This project asks: Who is left behind?</blockquote>
       </div>
     </section>
@@ -224,7 +228,7 @@
             <span class="step-num">STEP 04</span><h3>Compare access</h3><p>Calculated PHC coverage per 10,000 people.</p><span class="formula">(PHC count / population) × 10,000</span>
           </article>
         </div>
-        <div class="role-note"><p><strong>My Role:</strong> I personally handled data cleaning, spatial analysis in QGIS, calculation of PHC per 10,000, and map design.</p></div>
+        <div class="role-note"><p><strong>My Role:</strong> I led the full geospatial workflow, including data acquisition, cleaning, spatial analysis, buffer generation, population summarization, health service ratio calculations, map production, and interpretation of results for planning recommendations.</p></div>
         <figure class="method-map">
           <h3 class="method-map-heading">Population within 5 km of a PHC</h3>
           <div class="asset-frame">
@@ -257,7 +261,8 @@
     <section class="section finding" aria-labelledby="finding-title">
       <div class="wrap">
         <div class="section-heading"><p class="eyebrow">05 / Finding</p><h2 id="finding-title">Service access across Ondo State</h2></div>
-        <p class="finding-copy">17 out of 18 LGAs are <strong>ABOVE</strong> the standard of 1.0 PHC per 10,000 people. The only underserved LGA is <strong>Akure South (0.87)</strong>, where one PHC serves 11,446 people. This is because Akure South has the largest population (686,805) but only 60 PHCs. In contrast, <strong>Akoko South East (4.49)</strong> has the best access.</p>
+        <p class="finding-copy">17 out of 18 LGAs are <strong>ABOVE</strong> the standard of 1.0 PHC per 10,000 people. The only underserved LGA is <strong>Akure South (0.87)</strong>, where one PHC serves 11,446 people. Despite having 60 PHCs, Akure South remains the only LGA below the recommended threshold because its population size substantially exceeds the capacity of existing facilities. In contrast, <strong>Akoko South East (4.49)</strong> has the best access.</p>
+        <p class="finding-impact"><strong>Planning impact:</strong> The analysis provides evidence that can support healthcare planning and resource allocation decisions by identifying underserved areas and highlighting disparities in PHC distribution across Ondo State.</p>
       </div>
     </section>
 
