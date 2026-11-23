@@ -81,7 +81,6 @@
     .role-note { margin-top: 25px; padding: 18px 22px; border-left: 3px solid var(--coral); background: var(--white); }
     .role-note p { margin: 0; color: var(--ink-soft); font-size: 13px; }
     .role-note strong, .finding-copy strong, .finding-impact strong { color: var(--ink); }
-    .results-map { margin-top: 6px; }
     .results-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
     .result-card { min-height: 165px; padding: 20px 21px; border: 1px solid var(--line); background: var(--white); }
     .result-card .eyebrow { margin-bottom: 12px; }
@@ -93,7 +92,6 @@
     .finding { padding-bottom: 56px; }
     .finding-copy { max-width: 930px; margin: 0; padding: 22px 24px; border-left: 3px solid var(--coral); color: var(--ink-soft); background: var(--white); font-size: 16px; line-height: 1.8; }
     .finding-impact { max-width: 930px; margin: 16px 0 0; padding: 17px 22px; border-left: 3px solid var(--ink-soft); color: var(--muted); font-size: 13px; line-height: 1.8; }
-    .classification-note { margin: 18px 0 0; padding: 13px 16px; border: 1px solid var(--line); color: var(--muted); background: #eff0e5; font-size: 12px; line-height: 1.7; }
     .data-limit-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
     .data-limit-block { padding-top: 16px; border-top: 1px solid var(--line); }
     .data-limit-block h3 { margin: 0 0 12px; font: 700 15px var(--display); }
@@ -158,7 +156,7 @@
         <div class="case-intro">
           <p class="eyebrow">Primary healthcare · Ikeja LGA, Lagos State</p>
           <h1>Spatial Distribution and Equity of Primary Health Care Facilities in Ikeja LGA</h1>
-          <p class="summary">A 500 m grid-based GIS analysis of 108 primary healthcare facilities and WorldPop 2024 estimates across Ikeja. The analysis classified 208 cells by facility coverage and population, while an interactive dashboard makes the equity patterns explorable.</p>
+          <p class="summary">This project presents two related but distinct analyses of 108 primary healthcare facilities in Ikeja: a QGIS map counting facilities in each 500 m grid cell, and an interactive dashboard comparing population per PHC with a 10,000-person benchmark.</p>
           <div class="project-actions">
             <a class="project-button" href="https://ikeja-phc-dashboard.vercel.app/" target="_blank" rel="noopener noreferrer">Open live dashboard <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           </div>
@@ -168,7 +166,7 @@
             <div class="asset-placeholder"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="m5 9 10-4 10 4 10-4v26l-10 4-10-4-10 4V9Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M15 5v26m10-22v26" stroke="currentColor" stroke-width="1.3"/></svg><strong>Ikeja PHC grid map</strong><span>Expected file: <code>images/Spatial Distribution and Equity of Primary Health Care Facilities in Ikeja LGA.png</code>.</span></div>
             <img src="images/Spatial%20Distribution%20and%20Equity%20of%20Primary%20Health%20Care%20Facilities%20in%20Ikeja%20LGA.png" alt="Map of Ikeja LGA with primary health care facility points and 500 metre grid cells classified by facility count" data-asset>
           </div>
-          <figcaption class="image-caption">PHC locations and facility counts by 500 m grid cell in Ikeja LGA</figcaption>
+          <figcaption class="image-caption">QGIS layout map: PHC locations and facility counts by 500 m grid cell (no facility, one facility, or 2+ facilities).</figcaption>
         </figure>
       </div>
     </section>
@@ -176,7 +174,7 @@
     <section class="section" aria-labelledby="problem-title">
       <div class="wrap">
         <div class="section-heading"><p class="eyebrow">01 / The problem</p><h2 id="problem-title">Where does local access fall short?</h2></div>
-        <blockquote class="problem-quote">Facility totals alone can hide local gaps. This analysis compares PHC locations with population in small grid cells to identify where residents may face the greatest shortage of nearby services.</blockquote>
+        <blockquote class="problem-quote">Where are PHCs located, and which grid cells have the greatest population burden relative to available facilities? The project answers these with a facility-count map and a separate population-equity dashboard.</blockquote>
       </div>
     </section>
 
@@ -194,7 +192,7 @@
               <tr><td>Analysis grid</td><td>208 cells · 500 m × 500 m</td></tr>
               <tr><td>Study area</td><td>Approximately 49.2 km²</td></tr>
               <tr><td>Coordinate reference system</td><td>EPSG:26331</td></tr>
-              <tr><td>Equity benchmark</td><td>1 PHC per 10,000 people · WHO benchmark used in the report</td></tr>
+              <tr><td>Dashboard equity benchmark</td><td>1 PHC per 10,000 people · WHO benchmark used in the report</td></tr>
             </tbody>
           </table>
         </div>
@@ -203,7 +201,7 @@
 
     <section class="section" aria-labelledby="method-title">
       <div class="wrap">
-        <div class="section-heading"><p class="eyebrow">03 / Method</p><h2 id="method-title">From facility points to equity classes</h2></div>
+        <div class="section-heading"><p class="eyebrow">03 / Method</p><h2 id="method-title">Two complementary analysis workflows</h2></div>
         <div class="method-grid">
           <article class="method-step">
             <span class="method-icon"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 5.5h12M4 10h8M4 14.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="14.5" cy="14.5" r="2" stroke="currentColor" stroke-width="1.5"/></svg></span>
@@ -211,43 +209,53 @@
           </article>
           <article class="method-step">
             <span class="method-icon"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 15.5h10M6 12l2-4 2 2 3-5 2 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <span class="step-num">STEP 02</span><h3>Count facilities</h3><p>Counted PHC points within each cell to identify facility availability.</p>
+            <span class="step-num">STEP 02</span><h3>Map facility distribution</h3><p>Counted PHC points per cell. The QGIS layout map shows no facility, one facility, or 2+ facilities.</p>
           </article>
           <article class="method-step">
             <span class="method-icon"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m3 6 5-2 4 2 5-2v10l-5 2-4-2-5 2V6Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 4v10m4-8v10" stroke="currentColor" stroke-width="1.2"/></svg></span>
-            <span class="step-num">STEP 03</span><h3>Summarize population</h3><p>Used zonal statistics to summarize WorldPop population in each cell.</p>
+            <span class="step-num">STEP 03</span><h3>Analyze people served</h3><p>For the dashboard analysis, used zonal statistics to summarize WorldPop population in each cell.</p>
           </article>
           <article class="method-step">
             <span class="method-icon"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.4"/><circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="1.4"/><circle cx="10" cy="10" r=".8" fill="currentColor"/></svg></span>
-            <span class="step-num">STEP 04</span><h3>Classify equity</h3><p>Compared facility availability and people per facility with the report’s WHO benchmark.</p><span class="formula">people per PHC = cell population / facility count</span>
+            <span class="step-num">STEP 04</span><h3>Classify dashboard equity</h3><p>Separated zero-facility cells above 10,000 people from those at or below 10,000; cells with facilities were assessed by people per PHC.</p><span class="formula">people per PHC = cell population / facility count</span>
           </article>
         </div>
-        <div class="role-note"><p><strong>My role:</strong> I carried out the GIS analysis in QGIS and coded the interactive dashboard to explore the results.</p></div>
+        <div class="role-note"><p><strong>My role:</strong> I carried out the GIS analysis in QGIS, including the facility-count map and population-equity analysis, and coded the interactive dashboard.</p></div>
       </div>
     </section>
 
-    <section class="section" aria-labelledby="results-title">
+    <section class="section" aria-labelledby="distribution-title">
       <div class="wrap">
-        <div class="section-heading"><p class="eyebrow">04 / Results</p><h2 id="results-title">Equity patterns across 208 cells</h2></div>
-        <figure class="results-map">
-          <div class="asset-frame">
-            <div class="asset-placeholder"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="m5 9 10-4 10 4 10-4v26l-10 4-10-4-10 4V9Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M15 5v26m10-22v26" stroke="currentColor" stroke-width="1.3"/></svg><strong>Results map pending</strong><span>Expected file: <code>images/Spatial Distribution and Equity of Primary Health Care Facilities in Ikeja LGA.png</code>.</span></div>
-            <img src="images/Spatial%20Distribution%20and%20Equity%20of%20Primary%20Health%20Care%20Facilities%20in%20Ikeja%20LGA.png" alt="Facility distribution map with PHC points and grid cells shaded by number of facilities" data-asset>
-          </div>
-          <figcaption class="image-caption">The report map shows facility counts per grid cell; use the live dashboard to explore the equity classes.</figcaption>
-        </figure>
+        <div class="section-heading"><p class="eyebrow">04 / Facility-count map</p><h2 id="distribution-title">Where facilities fall within the grid</h2></div>
+        <p class="finding-copy">The QGIS layout map above shows facility locations and the number of PHCs in each cell: none, one, or two or more. It describes facility distribution only; population served and equity classes are analyzed separately in the interactive dashboard.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="dashboard-results-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">05 / Dashboard analysis</p><h2 id="dashboard-results-title">Population equity against the 10,000-person benchmark</h2></div>
+        <p class="finding-impact">The dashboard uses cell population and PHC availability to distinguish higher-population cells without a facility, lower-population cells without a facility, and cells meeting the people-per-PHC benchmark.</p>
         <div class="results-grid">
-          <article class="result-card highlight"><p class="eyebrow">Urgent need</p><h3>71 cells</h3><span class="result-value">34.1% of the 208-cell grid</span></article>
-          <article class="result-card gap"><p class="eyebrow">Underserved</p><h3>73 cells</h3><span class="result-value">35.1% of the 208-cell grid</span></article>
-          <article class="result-card standard"><p class="eyebrow">Adequate</p><h3>64 cells</h3><span class="result-value">30.8% of the 208-cell grid</span></article>
+          <article class="result-card highlight"><p class="eyebrow">Urgent need</p><h3>71 cells</h3><span class="result-value">34.1% · no PHC and more than 10,000 people</span></article>
+          <article class="result-card gap"><p class="eyebrow">Underserved</p><h3>73 cells</h3><span class="result-value">35.1% · no PHC and up to 10,000 people</span></article>
+          <article class="result-card standard"><p class="eyebrow">Adequate</p><h3>64 cells</h3><span class="result-value">30.8% · meets the people-per-PHC benchmark</span></article>
         </div>
-        <p class="classification-note"><strong>Classification note:</strong> The report’s written population cutoffs for the Urgent Need and Underserved classes overlap. The class totals above are reproduced from the report and dashboard; confirm the cutoff rule before using the classes for operational site selection.</p>
+        <div class="download-row">
+          <a class="download-button" href="https://ikeja-phc-dashboard.vercel.app/" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Explore the Interactive Dashboard
+          </a>
+          <a class="download-button" href="images/Spatial%20Distribution%20and%20Equity%20of%20Primary%20Health%20Care%20Facilities%20in%20Ikeja%20LGA.pdf" download>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 3v9m0 0 3-3m-3 3L7 9m-3 6v2h12v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Download Dashboard Analysis Report (PDF)
+          </a>
+        </div>
       </div>
     </section>
 
     <section class="section finding" aria-labelledby="finding-title">
       <div class="wrap">
-        <div class="section-heading"><p class="eyebrow">05 / Finding</p><h2 id="finding-title">Most cells were classified as underserved</h2></div>
+        <div class="section-heading"><p class="eyebrow">06 / Finding</p><h2 id="finding-title">Most cells were classified as underserved</h2></div>
         <p class="finding-copy">A combined <strong>144 of 208 cells (69.2%)</strong> were classified as Urgent Need or Underserved. The 71 Urgent Need cells have no PHC and were identified in the report as high-priority intervention areas. The 64 Adequate cells cluster around central Ikeja, GRA, and Allen Avenue, where most of the mapped facilities are located. The report found no cells classified as Overserved.</p>
         <p class="finding-impact"><strong>Planning relevance:</strong> The cell-level view highlights areas for closer review when planning facility placement and healthcare resources. The Urgent Need cells offer a starting point for further assessment.</p>
       </div>
@@ -255,7 +263,7 @@
 
     <section class="section" aria-labelledby="context-title">
       <div class="wrap">
-        <div class="section-heading"><p class="eyebrow">06 / Data context</p><h2 id="context-title">Sources and limitations</h2></div>
+        <div class="section-heading"><p class="eyebrow">07 / Data context</p><h2 id="context-title">Sources and limitations</h2></div>
         <div class="data-limit-grid">
           <div class="data-limit-block">
             <h3>Data sources</h3>
@@ -267,7 +275,7 @@
           </div>
           <div class="data-limit-block">
             <h3>What the grid shows</h3>
-            <p>Facility counts and estimated population summarized within 500 m × 500 m cells. The report uses the WHO benchmark of one PHC per 10,000 people to assess adequacy.</p>
+            <p>The static map displays facility counts per 500 m × 500 m cell. Separately, the dashboard summarizes population per cell and compares people per PHC with the 10,000-person benchmark.</p>
           </div>
           <div class="data-limit-block">
             <h3>Interpret with care</h3>
@@ -279,7 +287,7 @@
 
     <section class="recommendation" aria-labelledby="recommendation-title">
       <div class="wrap">
-        <p class="eyebrow">07 / Planning insight</p>
+        <p class="eyebrow">08 / Planning insight</p>
         <h2 id="recommendation-title" class="eyebrow" style="font-size:10px">Next step</h2>
         <blockquote class="recommendation-quote">Use the Urgent Need cells as priority areas for field validation and further assessment before selecting sites for new PHC services.</blockquote>
       </div>
@@ -287,18 +295,8 @@
 
     <section class="section" aria-labelledby="tools-title">
       <div class="wrap">
-        <div class="section-heading"><p class="eyebrow">08 / Tools &amp; downloads</p><h2 id="tools-title">Explore the analysis</h2></div>
+        <div class="section-heading"><p class="eyebrow">09 / Tools</p><h2 id="tools-title">Project tools</h2></div>
         <div class="tools-row" aria-label="Project tools"><span class="tool-chip">QGIS</span><span class="tool-chip">Leaflet</span><span class="tool-chip">WorldPop</span><span class="tool-chip">GRID3</span></div>
-        <div class="download-row">
-          <a class="download-button" href="https://ikeja-phc-dashboard.vercel.app/" target="_blank" rel="noopener noreferrer">
-            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Open Interactive Dashboard
-          </a>
-          <a class="download-button" href="images/Spatial%20Distribution%20and%20Equity%20of%20Primary%20Health%20Care%20Facilities%20in%20Ikeja%20LGA.pdf" download>
-            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 3v9m0 0 3-3m-3 3L7 9m-3 6v2h12v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Download Ikeja PHC Analysis PDF
-          </a>
-        </div>
       </div>
     </section>
   </main>
