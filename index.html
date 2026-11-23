@@ -130,8 +130,8 @@
       .hero-title-row { grid-template-columns: minmax(0, 1fr) 68px; gap: 10px; }
       .profile-portrait { width: 68px; }
       .hero-intro { max-width: 425px; font-size: 14px; }
-      .hero-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; margin-top: 22px; }
-      .hero-meta span + span::before { content: none; margin: 0; }
+      .hero-meta { display: flex; flex-wrap: nowrap; gap: 0 3px; margin-top: 22px; font-size: clamp(6px, 2vw, 9px); white-space: nowrap; }
+      .hero-meta span + span::before { margin-right: 3px; }
       .hero-actions { width: 100%; flex-direction: column; align-items: stretch; gap: 8px; }
       .hero-actions .button-primary, .hero-actions .text-link { width: 100%; justify-content: center; }
       .hero-actions .text-link { min-height: 40px; }
