@@ -75,14 +75,14 @@
     .method-step p { margin: 7px 0 0; color: var(--muted); font-size: 11px; }
     .demo-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
     .demo-figure { margin: 0; padding: 12px; border: 1px solid var(--line); background: var(--white); }
-    .demo-figure img { display: block; width: 100%; height: auto; max-height: 780px; object-fit: contain; background: #f2f4ef; }
+    .demo-figure img { display: block; width: 100%; height: auto; max-height: 780px; object-fit: contain; background: #f2f4ef; filter: brightness(.82) saturate(.9); }
     .demo-figure figcaption { margin: 10px 2px 2px; color: var(--muted); font: 10px/1.6 var(--mono); }
     .role-note, .finding-impact { max-width: 930px; margin: 24px 0 0; padding: 17px 22px; border-left: 3px solid var(--coral); color: var(--ink-soft); background: var(--white); font-size: 13px; line-height: 1.8; }
     .finding-impact { border-color: var(--ink-soft); background: transparent; }
     .role-note strong, .finding-impact strong { color: var(--ink); }
-    .page-footer { padding: 22px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+    .page-footer { padding: 22px 0; color: #b5c3bd; background: var(--ink); font-size: 10px; }
     .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .footer-inner a:hover { color: var(--ink); }
+    .footer-inner a:hover { color: var(--lime); }
 
     @media (max-width: 700px) {
       .wrap { width: min(100% - 36px, 1080px); }
@@ -90,11 +90,18 @@
       .section { padding: 58px 0; }
       .section-heading { display: block; }
       .section-heading h2 { margin-top: 12px; }
+      .project-actions { flex-wrap: nowrap; gap: 8px; }
+      .project-button { min-width: 0; min-height: 40px; justify-content: center; gap: 5px; padding: 0 8px; font-size: 10px; white-space: nowrap; }
+      .project-button svg { width: 12px; height: 12px; flex: 0 0 12px; }
       .method-grid, .demo-grid { grid-template-columns: 1fr; }
       .method-step { min-height: 0; padding: 19px 0; }
       .method-step + .method-step { padding-left: 0; border-top: 1px solid var(--line); border-left: 0; }
       .demo-figure img { max-height: none; }
       .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 360px) {
+      .project-button { gap: 4px; padding-inline: 6px; font-size: 9px; }
+      .project-button svg { width: 11px; height: 11px; flex-basis: 11px; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; }
@@ -196,7 +203,7 @@
   </main>
 
   <footer class="page-footer">
-    <div class="wrap footer-inner"><span>© <span id="year"></span> Favour Olamilekan Adeoye</span><a href="index.html#work">Back to selected work</a></div>
+    <div class="wrap footer-inner"><span>© <span id="year"></span> Favour Olamilekan Adeoye</span></div>
   </footer>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();

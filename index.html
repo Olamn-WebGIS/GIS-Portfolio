@@ -76,8 +76,10 @@
     .section-heading p { max-width: 345px; margin: 0 0 3px; color: var(--muted); font-size: 13px; }
     .projects { background: var(--paper); }
     .work-card { display: grid; grid-template-columns: 245px 1fr; overflow: hidden; border: 1px solid var(--line); background: var(--white); }
+    .work-card + .work-card { margin-top: 20px; }
     .work-card-thumbnail { min-width: 0; overflow: hidden; background: var(--white); }
     .work-card-thumbnail img { display: block; width: 100%; height: auto; aspect-ratio: 520 / 542; object-fit: cover; }
+    .futa-nav-card .work-card-thumbnail img { filter: brightness(.82) saturate(.9); }
     .work-card-content { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 27px 30px; }
     .work-card-content h3 { margin: 0; font: 700 22px/1.3 var(--display); }
     .work-card-content p { max-width: 560px; margin: 9px 0 0; color: var(--muted); font-size: 12px; line-height: 1.75; }
@@ -222,7 +224,7 @@
             <a class="case-link" href="ondo-phc.html">View Case Study <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           </div>
         </article>
-        <article class="work-card">
+        <article class="work-card futa-nav-card">
           <div class="work-card-thumbnail"><img src="images/futa-nav-thumbnail.jpg" alt="FUTA NAV campus navigator homepage with a search field for campus destinations"></div>
           <div class="work-card-content">
             <div>
