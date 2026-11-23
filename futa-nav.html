@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#162d2b">
+  <meta name="description" content="FUTA NAV is a GIS-based smart campus navigator built with field-collected building data, QGIS network analysis, and a web mapping app.">
+  <title>FUTA Nav - Smart Campus Navigator | Favour Olamilekan Adeoye</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      color-scheme: light;
+      --ink: #162d2b;
+      --ink-soft: #31514c;
+      --paper: #f5f4ed;
+      --white: #fffefa;
+      --line: #dedfd5;
+      --muted: #687571;
+      --lime: #d3ef73;
+      --coral: #e87959;
+      --sans: 'DM Sans', sans-serif;
+      --display: 'Manrope', sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 82px; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font: 15px/1.65 var(--sans); }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1080px, calc(100% - 64px)); margin-inline: auto; }
+    .site-header { position: sticky; z-index: 20; top: 0; height: 68px; border-bottom: 1px solid rgba(22,45,43,.12); background: rgba(245,244,237,.94); backdrop-filter: blur(14px); }
+    .nav { display: flex; height: 100%; align-items: center; justify-content: space-between; gap: 16px; }
+    .wordmark { display: inline-flex; align-items: center; gap: 10px; font: 800 13px var(--display); }
+    .brand-mark { display: block; width: 29px; aspect-ratio: 1; overflow: hidden; border-radius: 50%; background: var(--ink); }
+    .brand-mark img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 26%; }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-soft); font-size: 12px; font-weight: 600; }
+    .back-link:hover { color: #a64e37; }
+    .back-link svg { width: 15px; height: 15px; }
+    .eyebrow { margin: 0 0 12px; color: var(--muted); font: 500 10px/1.5 var(--mono); text-transform: uppercase; }
+    .case-hero { padding: 66px 0 0; }
+    .case-intro { max-width: 900px; margin-bottom: 30px; }
+    h1 { max-width: 900px; margin: 0; font: 700 clamp(38px, 6vw, 70px)/1.07 var(--display); }
+    .summary { max-width: 780px; margin: 18px 0 0; color: var(--ink-soft); font: 500 clamp(17px, 2.4vw, 23px)/1.5 var(--sans); }
+    .project-actions, .tools-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .project-button { display: inline-flex; min-height: 44px; align-items: center; gap: 9px; padding: 0 15px; border: 1px solid var(--ink); border-radius: 3px; color: var(--white); background: var(--ink); font-size: 12px; font-weight: 700; }
+    .project-button:hover { color: var(--ink); border-color: var(--lime); background: var(--lime); }
+    .project-button svg { width: 15px; height: 15px; }
+    .project-button.secondary { color: var(--ink); background: transparent; }
+    .project-button.secondary:hover { border-color: var(--lime); background: var(--lime); }
+    .project-facts { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 24px; }
+    .project-facts span, .tool-chip { padding: 6px 9px; border: 1px solid var(--line); color: var(--ink-soft); font: 10px var(--mono); }
+
+    .section { padding: 76px 0; border-bottom: 1px solid var(--line); }
+    .section:last-of-type { border-bottom: 0; }
+    .section-heading { display: grid; grid-template-columns: 220px 1fr; gap: 24px; align-items: baseline; margin-bottom: 26px; }
+    .section-heading .eyebrow { margin: 0; }
+    h2 { margin: 0; font: 700 clamp(25px, 3.3vw, 38px)/1.2 var(--display); }
+    .problem-quote { max-width: 850px; margin: 0; padding-left: 22px; border-left: 3px solid var(--coral); font: 500 clamp(18px, 2.7vw, 27px)/1.5 var(--display); }
+    .section-copy { max-width: 850px; margin: 0; color: var(--ink-soft); font-size: 14px; line-height: 1.85; }
+    .section-copy + .section-copy { margin-top: 20px; }
+    .data-table-wrap { overflow-x: auto; border: 1px solid var(--line); background: var(--white); }
+    .data-table { width: 100%; border-collapse: collapse; text-align: left; }
+    .data-table caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+    .data-table th, .data-table td { padding: 15px 19px; border-bottom: 1px solid var(--line); }
+    .data-table th { color: var(--muted); font: 500 10px var(--mono); text-transform: uppercase; }
+    .data-table td:first-child { font-weight: 600; }
+    .data-table tr:last-child td { border-bottom: 0; }
+    .data-table td:last-child { color: var(--ink-soft); }
+    .method-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .method-step { min-height: 205px; padding: 21px 18px 22px 0; }
+    .method-step + .method-step { padding-left: 18px; border-left: 1px solid var(--line); }
+    .step-num { display: block; color: #8a6758; font: 10px var(--mono); }
+    .method-step h3 { margin: 13px 0 0; font: 700 15px/1.5 var(--display); }
+    .method-step p { margin: 7px 0 0; color: var(--muted); font-size: 11px; }
+    .demo-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .demo-figure { margin: 0; padding: 12px; border: 1px solid var(--line); background: var(--white); }
+    .demo-figure img { display: block; width: 100%; height: auto; max-height: 780px; object-fit: contain; background: #f2f4ef; }
+    .demo-figure figcaption { margin: 10px 2px 2px; color: var(--muted); font: 10px/1.6 var(--mono); }
+    .role-note, .finding-impact { max-width: 930px; margin: 24px 0 0; padding: 17px 22px; border-left: 3px solid var(--coral); color: var(--ink-soft); background: var(--white); font-size: 13px; line-height: 1.8; }
+    .finding-impact { border-color: var(--ink-soft); background: transparent; }
+    .role-note strong, .finding-impact strong { color: var(--ink); }
+    .page-footer { padding: 22px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .footer-inner a:hover { color: var(--ink); }
+
+    @media (max-width: 700px) {
+      .wrap { width: min(100% - 36px, 1080px); }
+      .case-hero { padding-top: 46px; }
+      .section { padding: 58px 0; }
+      .section-heading { display: block; }
+      .section-heading h2 { margin-top: 12px; }
+      .method-grid, .demo-grid { grid-template-columns: 1fr; }
+      .method-step { min-height: 0; padding: 19px 0; }
+      .method-step + .method-step { padding-left: 0; border-top: 1px solid var(--line); border-left: 0; }
+      .demo-figure img { max-height: none; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="Project navigation">
+      <a class="wordmark" href="index.html" aria-label="Favour Olamilekan Adeoye portfolio home">
+        <span class="brand-mark" aria-hidden="true"><img src="images/Profilepic.png" alt=""></span>
+        FAVOUR OLAMILEKAN ADEOYE
+      </a>
+      <a class="back-link" href="index.html#work"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M15 10H5m0 0 4 4m-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to selected work</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="case-hero">
+      <div class="wrap">
+        <div class="case-intro">
+          <p class="eyebrow">Web GIS · Campus wayfinding</p>
+          <h1>FUTA Nav - Smart Campus Navigator</h1>
+          <p class="summary">A student-first campus guide that helps FUTA students and visitors search for mapped places in familiar language, choose a starting point, and find a walking route—even offline.</p>
+          <div class="project-actions">
+            <a class="project-button" href="https://futanav.vercel.app/" target="_blank" rel="noopener noreferrer">Open Live Demo <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="project-button secondary" href="images/FUTA%20NAV.pdf" target="_blank" rel="noopener noreferrer">View Project Brief (PDF) <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+          <div class="project-facts" aria-label="Project highlights"><span>FUTA · Akure</span><span>Field-collected buildings</span><span>Shortest-path analysis</span><span>Solo project</span></div>
+        </div>
+        <div class="demo-grid" aria-label="FUTA NAV app screenshots">
+          <figure class="demo-figure">
+            <img src="images/demo%20image%201.png" alt="FUTA NAV homepage with destination search and campus map">
+            <figcaption>01 / Search a campus destination and choose a starting point.</figcaption>
+          </figure>
+          <figure class="demo-figure">
+            <img src="images/demo%20image%202.png" alt="FUTA NAV campus map showing a blue walking route and estimated travel time">
+            <figcaption>02 / Route preview over mapped campus paths, with estimated distance and walking time.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="problem-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">01 / The challenge</p><h2 id="problem-title">Finding your way around a large campus</h2></div>
+        <p class="problem-quote">New students and visitors can struggle to find lecture halls, offices, and other places on campus—especially when local names differ from formal building names.</p>
+        <p class="section-copy">FUTA NAV brings mapped campus locations and walking routes together in one app. Search by an official place name or a familiar student description such as “where they do GST,” choose a starting point or use your device location, and view the route on an interactive map.</p>
+        <p class="section-copy">The “Find my route” flow shows the destination, its photo, and an estimated walking time. Offline access helps make the navigator useful when connectivity is limited.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="data-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">02 / Data used</p><h2 id="data-title">Building a campus map from multiple sources</h2></div>
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <caption>Data sources and preparation for the FUTA campus navigator</caption>
+            <thead><tr><th scope="col">Layer / input</th><th scope="col">Source and use</th></tr></thead>
+            <tbody>
+              <tr><td>Campus buildings and places</td><td>Field-collected coordinates and photographs recorded with Mergin Maps</td></tr>
+              <tr><td>Roads and paths</td><td>OpenStreetMap data prepared for network analysis</td></tr>
+              <tr><td>Campus boundary</td><td>Digitized as a shapefile using Google Earth Pro imagery</td></tr>
+              <tr><td>GIS preparation</td><td>QGIS geometry repair, boundary clipping, and snapping building points to the road network</td></tr>
+              <tr><td>Web map</td><td>GeoJSON layers displayed with Leaflet</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="method-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">03 / Workflow</p><h2 id="method-title">From field mapping to a route preview</h2></div>
+        <div class="method-grid">
+          <article class="method-step"><span class="step-num">STEP 01</span><h3>Map campus places</h3><p>Visited locations, recorded building coordinates, and collected photographs using Mergin Maps.</p></article>
+          <article class="method-step"><span class="step-num">STEP 02</span><h3>Prepare spatial layers</h3><p>Combined field-collected places with OpenStreetMap roads and a digitized campus boundary in QGIS.</p></article>
+          <article class="method-step"><span class="step-num">STEP 03</span><h3>Analyze the network</h3><p>Repaired geometries, clipped data to the campus boundary, and snapped building points to the road network before running shortest-path analysis.</p></article>
+          <article class="method-step"><span class="step-num">STEP 04</span><h3>Build the web navigator</h3><p>Connected campus-place search, starting-point selection, device location, and route previews in a Leaflet web app.</p></article>
+        </div>
+        <div class="role-note"><strong>My role:</strong> Solo project — field data collection, road-network cleaning, GIS and shortest-path analysis, and frontend development.</div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="limits-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">04 / Scope and next steps</p><h2 id="limits-title">A useful prototype, with routes to verify</h2></div>
+        <p class="section-copy">FUTA NAV brings campus data and route previews into one accessible interface. Its usefulness depends on the coverage and connectivity of mapped paths; OpenStreetMap may not include every campus path, so route suggestions should be checked against campus signs and local conditions.</p>
+        <p class="finding-impact"><strong>Next steps:</strong> Field-check path connectivity and route accuracy, update missing or incorrect paths, and test the navigator with students and visitors.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="tools-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">05 / Tools</p><h2 id="tools-title">Tools and technologies</h2></div>
+        <div class="tools-row" aria-label="Project tools"><span class="tool-chip">QGIS</span><span class="tool-chip">Mergin Maps</span><span class="tool-chip">OpenStreetMap</span><span class="tool-chip">Google Earth Pro</span><span class="tool-chip">GeoJSON</span><span class="tool-chip">Leaflet</span><span class="tool-chip">JavaScript</span><span class="tool-chip">HTML · CSS</span><span class="tool-chip">Network analysis</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-footer">
+    <div class="wrap footer-inner"><span>© <span id="year"></span> Favour Olamilekan Adeoye</span><a href="index.html#work">Back to selected work</a></div>
+  </footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
