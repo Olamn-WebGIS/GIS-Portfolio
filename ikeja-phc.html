@@ -102,7 +102,8 @@
     .recommendation .eyebrow { color: var(--lime); }
     .recommendation-quote { border-color: var(--lime); }
     .tools-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-    .tool-chip { padding: 6px 10px; border: 1px solid var(--line); color: var(--ink-soft); background: var(--white); font: 10px var(--mono); }
+    .tool-chip { display: inline-flex; min-height: 38px; align-items: center; gap: 8px; padding: 5px 10px 5px 6px; border: 1px solid var(--line); color: var(--ink-soft); background: var(--white); font: 10px var(--mono); }
+    .tool-icon { display: grid; width: 25px; height: 25px; flex: 0 0 25px; place-items: center; color: var(--ink); background: #e8efcf; font: 700 9px var(--mono); }
     .download-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 24px; }
     .download-button { display: inline-flex; min-height: 44px; align-items: center; gap: 9px; padding: 0 15px; border: 1px solid var(--ink); border-radius: 3px; color: var(--white); background: var(--ink); font-size: 12px; font-weight: 700; }
     .download-button:hover { color: var(--ink); border-color: var(--lime); background: var(--lime); }
@@ -296,7 +297,7 @@
     <section class="section" aria-labelledby="tools-title">
       <div class="wrap">
         <div class="section-heading"><p class="eyebrow">09 / Tools</p><h2 id="tools-title">Project tools</h2></div>
-        <div class="tools-row" aria-label="Project tools"><span class="tool-chip">QGIS</span><span class="tool-chip">Visual Studio Code</span><span class="tool-chip">Leaflet</span><span class="tool-chip">WorldPop</span><span class="tool-chip">GRID3</span></div>
+        <div class="tools-row" aria-label="Project tools"><span class="tool-chip"><span class="tool-icon" aria-hidden="true">QG</span>QGIS</span><span class="tool-chip"><span class="tool-icon" aria-hidden="true">VS</span>Visual Studio Code</span><span class="tool-chip"><span class="tool-icon" aria-hidden="true">Lf</span>Leaflet</span><span class="tool-chip"><span class="tool-icon" aria-hidden="true">WP</span>WorldPop</span><span class="tool-chip"><span class="tool-icon" aria-hidden="true">G3</span>GRID3</span></div>
       </div>
     </section>
   </main>
