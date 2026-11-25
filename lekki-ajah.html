@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#162d2b">
+  <meta name="description" content="A Lekki-Ajah Web GIS project using OpenStreetMap context layers and a clearly disclosed synthetic property dataset to demonstrate spatial suitability and flood-risk proxy analysis.">
+  <title>Lekki-Ajah Real Estate Location Intelligence | Favour Olamilekan Adeoye</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      color-scheme: light;
+      --ink: #162d2b;
+      --ink-soft: #31514c;
+      --paper: #f5f4ed;
+      --white: #fffefa;
+      --line: #dedfd5;
+      --muted: #687571;
+      --lime: #d3ef73;
+      --coral: #e87959;
+      --sans: 'DM Sans', sans-serif;
+      --display: 'Manrope', sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 82px; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font: 15px/1.65 var(--sans); }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1080px, calc(100% - 64px)); margin-inline: auto; }
+    .site-header { position: sticky; z-index: 20; top: 0; height: 68px; border-bottom: 1px solid rgba(22,45,43,.12); background: rgba(245,244,237,.94); backdrop-filter: blur(14px); }
+    .nav { display: flex; height: 100%; align-items: center; justify-content: space-between; gap: 16px; }
+    .wordmark { display: inline-flex; align-items: center; gap: 10px; font: 800 13px var(--display); }
+    .brand-mark { display: block; width: 29px; aspect-ratio: 1; overflow: hidden; border-radius: 50%; background: var(--ink); }
+    .brand-mark img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 26%; }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-soft); font-size: 12px; font-weight: 600; }
+    .back-link:hover { color: #a64e37; }
+    .back-link svg { width: 15px; height: 15px; }
+    .eyebrow { margin: 0 0 12px; color: var(--muted); font: 500 10px/1.5 var(--mono); text-transform: uppercase; }
+    .case-hero { padding: 66px 0 0; }
+    .case-intro { max-width: 900px; margin-bottom: 30px; }
+    h1 { max-width: 900px; margin: 0; font: 700 clamp(38px, 6vw, 70px)/1.07 var(--display); }
+    .summary { max-width: 800px; margin: 18px 0 0; color: var(--ink-soft); font: 500 clamp(17px, 2.4vw, 23px)/1.5 var(--sans); }
+    .project-actions, .tools-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .project-button { display: inline-flex; min-height: 44px; align-items: center; gap: 9px; padding: 0 15px; border: 1px solid var(--ink); border-radius: 3px; color: var(--white); background: var(--ink); font-size: 12px; font-weight: 700; }
+    .project-button:hover { color: var(--ink); border-color: var(--lime); background: var(--lime); }
+    .project-button svg { width: 15px; height: 15px; }
+    .project-button.secondary { color: var(--ink); background: transparent; }
+    .project-button.secondary:hover { border-color: var(--lime); background: var(--lime); }
+    .project-facts { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 24px; }
+    .project-facts span { padding: 6px 9px; border: 1px solid var(--line); color: var(--ink-soft); font: 10px var(--mono); }
+    .notice { margin: 24px 0 0; padding: 18px 21px; border: 1px solid #e6c6b8; border-left: 4px solid var(--coral); background: #fff7f2; color: var(--ink-soft); font-size: 13px; line-height: 1.8; }
+    .notice strong { color: var(--ink); }
+    .map-figure { margin: 0; padding: 12px; border: 1px solid var(--line); background: var(--white); }
+    .map-figure img { display: block; width: 100%; max-height: 660px; object-fit: contain; background: #fffefa; }
+    .map-figure figcaption { margin: 10px 2px 2px; color: var(--muted); font: 10px/1.6 var(--mono); }
+    .section { padding: 76px 0; border-bottom: 1px solid var(--line); }
+    .section:last-of-type { border-bottom: 0; }
+    .section-heading { display: grid; grid-template-columns: 220px 1fr; gap: 24px; align-items: baseline; margin-bottom: 26px; }
+    .section-heading .eyebrow { margin: 0; }
+    h2 { margin: 0; font: 700 clamp(25px, 3.3vw, 38px)/1.2 var(--display); }
+    h3 { margin: 0; font: 700 16px/1.5 var(--display); }
+    .problem-quote { max-width: 880px; margin: 0; padding-left: 22px; border-left: 3px solid var(--coral); font: 500 clamp(18px, 2.7vw, 27px)/1.5 var(--display); }
+    .section-copy { max-width: 900px; margin: 18px 0 0; color: var(--ink-soft); font-size: 14px; line-height: 1.85; }
+    .metric-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .metric-card { min-height: 145px; padding: 20px; border: 1px solid var(--line); border-top: 3px solid var(--ink-soft); background: var(--white); }
+    .metric-card strong { display: block; font: 700 clamp(23px, 3vw, 34px)/1.15 var(--display); }
+    .metric-card span { display: block; margin-top: 9px; color: var(--muted); font-size: 11px; line-height: 1.6; }
+    .metric-note { margin: 15px 0 0; color: var(--muted); font-size: 11px; line-height: 1.8; }
+    .data-table-wrap { overflow-x: auto; border: 1px solid var(--line); background: var(--white); }
+    .data-table { width: 100%; border-collapse: collapse; text-align: left; }
+    .data-table caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+    .data-table th, .data-table td { padding: 14px 18px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .data-table th { color: var(--muted); font: 500 10px var(--mono); text-transform: uppercase; }
+    .data-table td:first-child { width: 27%; font-weight: 600; }
+    .data-table tr:last-child td { border-bottom: 0; }
+    .data-table td:last-child { color: var(--ink-soft); }
+    .method-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .method-step { min-height: 190px; padding: 21px 18px 22px 0; }
+    .method-step + .method-step { padding-left: 18px; border-left: 1px solid var(--line); }
+    .step-num { display: block; color: #8a6758; font: 10px var(--mono); }
+    .method-step h3 { margin-top: 13px; }
+    .method-step p { margin: 7px 0 0; color: var(--muted); font-size: 11px; }
+    .score-formula { margin: 22px 0 0; padding: 16px 18px; border: 1px solid var(--line); background: var(--white); color: var(--ink-soft); font: 12px/1.9 var(--mono); }
+    .score-formula strong { color: var(--ink); }
+    .impact-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .metric-grid + .impact-grid { margin-top: 14px; }
+    .impact-grid + .finding-impact { margin-top: 24px; }
+    .impact-card { padding: 20px 22px; border: 1px solid var(--line); border-left: 3px solid var(--lime); background: var(--white); }
+    .impact-card p { margin: 7px 0 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+    .finding-impact, .role-note { max-width: 930px; margin: 24px 0 0; padding: 17px 22px; border-left: 3px solid var(--ink-soft); color: var(--ink-soft); background: transparent; font-size: 13px; line-height: 1.8; }
+    .role-note { border-color: var(--coral); background: var(--white); }
+    .finding-impact strong, .role-note strong { color: var(--ink); }
+    .tool-chip { display: inline-flex; min-height: 38px; align-items: center; gap: 8px; padding: 5px 10px 5px 6px; border: 1px solid var(--line); color: var(--ink-soft); background: var(--white); font: 10px var(--mono); }
+    .tool-icon { display: grid; width: 25px; height: 25px; flex: 0 0 25px; place-items: center; color: var(--ink); background: #e8efcf; font: 700 9px var(--mono); }
+    .project-cta { padding: 44px 0; color: var(--white); background: var(--ink); }
+    .project-cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .project-cta .eyebrow { margin-bottom: 8px; color: var(--lime); }
+    .project-cta h2 { max-width: 650px; font-size: clamp(24px, 3vw, 34px); }
+    .project-cta .project-button { flex: 0 0 auto; color: var(--ink); border-color: var(--lime); background: var(--lime); }
+    .page-footer { padding: 22px 0; color: var(--muted); background: #102321; font: 10px var(--mono); }
+
+    @media (max-width: 760px) {
+      .wrap { width: calc(100% - 40px); }
+      .case-hero { padding-top: 42px; }
+      .section { padding: 55px 0; }
+      .section-heading { grid-template-columns: 1fr; gap: 8px; margin-bottom: 22px; }
+      .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .metric-card { min-height: 125px; padding: 16px; }
+      .method-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .method-step { min-height: 170px; padding: 17px 14px 18px 0; }
+      .method-step + .method-step { padding-left: 14px; }
+      .method-step:nth-child(3) { border-top: 1px solid var(--line); }
+      .method-step:nth-child(4) { border-top: 1px solid var(--line); }
+      .project-cta-inner { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 480px) {
+      .wrap { width: calc(100% - 32px); }
+      .site-header { height: 62px; }
+      .wordmark { gap: 7px; font-size: 10px; }
+      .brand-mark { width: 25px; }
+      .back-link { gap: 5px; font-size: 10px; }
+      .case-hero { padding-top: 34px; }
+      .project-actions { gap: 8px; }
+      .project-button { min-height: 42px; padding: 0 11px; font-size: 11px; }
+      .project-facts span { font-size: 9px; }
+      .notice { padding: 15px; font-size: 12px; }
+      .metric-grid, .impact-grid { grid-template-columns: 1fr; }
+      .metric-card { min-height: auto; }
+      .data-table th, .data-table td { padding: 11px 12px; font-size: 11px; }
+      .method-step { min-height: 190px; }
+      .score-formula { font-size: 10px; overflow-wrap: anywhere; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="Main navigation">
+      <a class="wordmark" href="index.html" aria-label="Favour Olamilekan Adeoye portfolio home">
+        <span class="brand-mark" aria-hidden="true"><img src="images/Profilepic.png" alt=""></span>
+        FAVOUR OLAMILEKAN ADEOYE
+      </a>
+      <a class="back-link" href="index.html#work"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M15 10H5m0 0 4 4m-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to portfolio</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="case-hero">
+      <div class="wrap">
+        <div class="case-intro">
+          <p class="eyebrow">Web GIS · Spatial suitability · Lekki-Ajah, Lagos</p>
+          <h1>Lekki-Ajah Real Estate Location Intelligence</h1>
+          <p class="summary">A geospatial decision-support prototype that combines OpenStreetMap context layers with a weighted proximity model to explore location suitability across five Lekki-Ajah sub-markets.</p>
+          <div class="project-actions">
+            <a class="project-button" href="https://realestate-location-intelligence.vercel.app/" target="_blank" rel="noopener noreferrer">Open Live Demo <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="project-button secondary" href="images/Lekki-Ajah%20Geospatial%20Real%20Estate%20Investment%20Intelligence%20Report.pdf" target="_blank" rel="noopener noreferrer">View Project Report (PDF) <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+          <div class="project-facts" aria-label="Project highlights"><span>100 synthetic property records</span><span>5 sub-markets</span><span>QGIS · EPSG:32631</span><span>OSM context layers</span></div>
+          <aside class="notice"><strong>Dataset disclosure:</strong> The property records and asking prices are synthetic, AI-assisted examples created for analysis—not verified real listings, market valuations, or investment advice. The OpenStreetMap layers provide geographic context; the model outputs should be treated as a demonstration only.</aside>
+        </div>
+        <figure class="map-figure">
+          <img src="images/lekki-ajah layout.png" alt="Lekki-Ajah GIS map showing sample properties alongside roads, water, bus stops, markets, schools, and hospitals">
+          <figcaption>QGIS map layout / Illustrative property points and OpenStreetMap context layers across the Lekki-Ajah corridor.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="challenge-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">01 / The challenge</p><h2 id="challenge-title">Look beyond a neighbourhood label</h2></div>
+        <p class="problem-quote">A location’s name or asking price alone does not show how close it is to roads, public transport, schools, healthcare, markets, or mapped water.</p>
+        <p class="section-copy">This project demonstrates a way to bring those location factors into one map and compare illustrative property scenarios. It uses proximity to mapped features as a consistent screening framework, rather than treating neighbourhood reputation or asking price as a complete picture of suitability.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="data-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">02 / Data and scope</p><h2 id="data-title">Real map context, simulated properties</h2></div>
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <caption>Data inputs and their role in the Lekki-Ajah location-intelligence project</caption>
+            <thead><tr><th scope="col">Input</th><th scope="col">Source and use</th></tr></thead>
+            <tbody>
+              <tr><td>Roads and water bodies</td><td>OpenStreetMap context layers used to calculate proximity and a distance-to-water flood-risk proxy.</td></tr>
+              <tr><td>Schools, hospitals, markets and bus stops</td><td>OpenStreetMap amenity and transit context used to compare access to everyday services.</td></tr>
+              <tr><td>Property scenarios</td><td>100 synthetic, AI-assisted records distributed across Lekki Phase 1, Ikate, Jakande, Ajah and Sangotedo (20 per sub-market). Names, locations, property details and asking prices are not verified real listings.</td></tr>
+              <tr><td>Analysis coordinate system</td><td>WGS 84 / UTM Zone 31N (EPSG:32631), used for planar distance calculations in metres.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="workflow-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">03 / Workflow</p><h2 id="workflow-title">From spatial layers to an interactive comparison</h2></div>
+        <div class="method-grid">
+          <article class="method-step"><span class="step-num">STEP 01</span><h3>Assemble map context</h3><p>Bring together OSM roads, mapped water bodies, schools, hospitals, markets and bus stops for the study area.</p></article>
+          <article class="method-step"><span class="step-num">STEP 02</span><h3>Prepare the scenario data</h3><p>Create a 100-record synthetic property dataset across five sub-markets for a repeatable demonstration.</p></article>
+          <article class="method-step"><span class="step-num">STEP 03</span><h3>Measure proximity</h3><p>Reproject spatial layers to EPSG:32631 and calculate straight-line distances from property points to nearby features.</p></article>
+          <article class="method-step"><span class="step-num">STEP 04</span><h3>Score and explore</h3><p>Combine weighted distance bands and unit land-price criteria into a composite score, then explore the scenarios in a web dashboard.</p></article>
+        </div>
+        <p class="score-formula"><strong>Composite score (0–100)</strong> = Flood-risk proxy (20) + Road access (15) + Bus access (10) + School access (10) + Healthcare access (10) + Market access (10) + Unit land value (25)</p>
+        <p class="section-copy">The report assigns points using set distance bands—for example, proximity to water, roads, bus stops, schools, hospitals and markets—and gives unit land value a 25-point weight. Flats with no land area receive a neutral price component in the described model.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="results-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">04 / Demonstration outputs</p><h2 id="results-title">What the model makes possible to compare</h2></div>
+        <div class="metric-grid">
+          <article class="metric-card"><strong>100</strong><span>synthetic property scenarios included in the report</span></article>
+          <article class="metric-card"><strong>5</strong><span>sub-markets with 20 example records each</span></article>
+          <article class="metric-card"><strong>7</strong><span>weighted components in the location score</span></article>
+          <article class="metric-card"><strong>0–100</strong><span>illustrative composite suitability score range</span></article>
+        </div>
+        <div class="impact-grid">
+          <article class="impact-card"><h3>Compare access and constraints</h3><p>Explore how mapped proximity criteria and the sample unit-price component contribute to each scenario’s score.</p></article>
+          <article class="impact-card"><h3>Inspect spatial trade-offs</h3><p>Use the map and dashboard to compare records and sub-markets, and identify where the model flags questions for further investigation.</p></article>
+        </div>
+    </section>
+
+    <section class="section" aria-labelledby="limitations-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">05 / Limitations</p><h2 id="limitations-title">A screening prototype, not a property or flood assessment</h2></div>
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <caption>Known limitations documented in the project report</caption>
+            <thead><tr><th scope="col">Limitation</th><th scope="col">Why it matters</th></tr></thead>
+            <tbody>
+              <tr><td>Synthetic property records</td><td>Names, coordinates, prices and property details do not represent verified listings or a sampled real-estate market.</td></tr>
+              <tr><td>Distance to water is only a proxy</td><td>Proximity alone does not establish flood hazard. Elevation, drainage, historical flooding and engineering assessment are not included.</td></tr>
+              <tr><td>Coordinate drift noted in report</td><td>Some records labelled Ikate, Ajah and Sangotedo have coordinates that appear to overlap western Lekki/Lagos Island; sub-market comparisons require coordinate validation.</td></tr>
+              <tr><td>Straight-line distance</td><td>Euclidean proximity is not travel distance or travel time; it does not account for road-network barriers, access points or traffic.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="role-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">06 / My contribution</p><h2 id="role-title">Spatial analysis and decision-support design</h2></div>
+        <p class="section-copy">I assembled the OpenStreetMap context layers, prepared the synthetic property scenarios with Meta AI for analytical demonstration, carried out the QGIS proximity and weighted suitability analysis, documented the findings and limitations in the report, and built the interactive web experience.</p>
+        <div class="tools-row" aria-label="Project tools and methods">
+          <span class="tool-chip"><span class="tool-icon" aria-hidden="true">QG</span>QGIS</span>
+          <span class="tool-chip"><span class="tool-icon" aria-hidden="true">OSM</span>OpenStreetMap</span>
+          <span class="tool-chip"><span class="tool-icon" aria-hidden="true">31N</span>UTM Zone 31N</span>
+          <span class="tool-chip"><span class="tool-icon" aria-hidden="true">MC</span>MCDA</span>
+          <span class="tool-chip"><span class="tool-icon" aria-hidden="true">GIS</span>Web GIS</span>
+          <span class="tool-chip"><span class="tool-icon" aria-hidden="true">AI</span>Meta AI · synthetic data</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-cta" aria-labelledby="demo-title">
+      <div class="wrap project-cta-inner">
+        <div><p class="eyebrow">Explore the prototype</p><h2 id="demo-title">See the Lekki-Ajah location-intelligence dashboard.</h2></div>
+        <a class="project-button" href="https://realestate-location-intelligence.vercel.app/" target="_blank" rel="noopener noreferrer">Try the Live Demo <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-footer"><div class="wrap">© <span id="year"></span> Favour Olamilekan Adeoye</div></footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

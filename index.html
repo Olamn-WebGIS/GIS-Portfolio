@@ -95,9 +95,9 @@
     .profile-card .eyebrow { margin-bottom: 12px; }
     .profile-card h3 { margin: 0; font: 700 18px/1.4 var(--display); }
     .profile-card p { margin: 8px 0 0; color: var(--muted); font-size: 12px; line-height: 1.75; }
-    .profile-card.skills-card { grid-column: 1 / -1; }
+    .profile-card.skills-card { min-width: 0; }
     .skills-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-    .skills-list > span { display: inline-flex; min-height: 38px; align-items: center; gap: 8px; padding: 5px 10px 5px 6px; border: 1px solid var(--line); color: var(--ink-soft); background: var(--white); font: 9px var(--mono); }
+    .skills-list > span { display: inline-flex; max-width: 100%; min-height: 38px; align-items: center; gap: 8px; padding: 5px 10px 5px 6px; border: 1px solid var(--line); color: var(--ink-soft); background: var(--white); font: 9px var(--mono); overflow-wrap: anywhere; }
     .skill-icon { display: grid; width: 25px; height: 25px; flex: 0 0 25px; place-items: center; color: var(--ink); background: #e8efcf; font: 700 9px var(--mono); }
 
     .contact { padding: 69px 0; color: var(--white); background: #31514c; }
@@ -149,6 +149,7 @@
       .work-card-thumbnail img { height: 300px; object-fit: contain; }
       .work-card-content { align-items: flex-start; flex-direction: column; gap: 18px; padding: 22px; }
       .about-grid { grid-template-columns: 1fr; gap: 21px; }
+      .profile-grid { grid-template-columns: 1fr; }
       .contact { padding: 56px 0; }
       .contact-inner { align-items: flex-start; flex-direction: column; gap: 23px; }
       .contact h2 { font-size: 36px; }
@@ -237,6 +238,17 @@
           </div>
         </article>
         <article class="work-card">
+          <div class="work-card-thumbnail"><img src="images/lekki-ajah-thumbnail.jpg" alt="Lekki-Ajah map showing illustrative properties and OpenStreetMap context layers"></div>
+          <div class="work-card-content">
+            <div>
+              <h3>Lekki-Ajah Real Estate Location Intelligence</h3>
+              <p>A spatial suitability Web GIS prototype comparing 100 synthetic property scenarios with OpenStreetMap roads, water, amenities, and transit.</p>
+              <div class="work-card-facts"><span>100 synthetic records</span><span>5 sub-markets</span><span>QGIS · MCDA</span></div>
+            </div>
+            <a class="case-link" href="lekki-ajah.html">View Case Study <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </article>
+        <article class="work-card">
           <div class="work-card-thumbnail"><img src="images/ikeja-phc-thumbnail.jpg" alt="Map of Ikeja LGA showing PHC locations and facility counts within 500 metre grid cells"></div>
           <div class="work-card-content">
             <div>
@@ -270,11 +282,33 @@
             <p>Language: English</p>
           </article>
           <article class="profile-card skills-card">
+            <p class="eyebrow">Skills</p>
+            <div class="skills-list" aria-label="Geospatial skills">
+              <span><span class="skill-icon" aria-hidden="true">RS</span>Remote sensing &amp; image processing</span>
+              <span><span class="skill-icon" aria-hidden="true">SA</span>Spatial analysis</span>
+              <span><span class="skill-icon" aria-hidden="true">NA</span>Network analysis</span>
+              <span><span class="skill-icon" aria-hidden="true">MC</span>Spatial MCDA</span>
+              <span><span class="skill-icon" aria-hidden="true">CT</span>Cartography &amp; map design</span>
+              <span><span class="skill-icon" aria-hidden="true">DB</span>Geospatial data management</span>
+              <span><span class="skill-icon" aria-hidden="true">GIS</span>Field data collection</span>
+            </div>
+          </article>
+          <article class="profile-card skills-card">
             <p class="eyebrow">Tools &amp; technologies</p>
-            <div class="skills-list" aria-label="Technical skills">
-              <span><span class="skill-icon" aria-hidden="true">QG</span>QGIS</span><span><span class="skill-icon" aria-hidden="true">GE</span>Google Earth Pro</span><span><span class="skill-icon" aria-hidden="true">AP</span>ArcGIS Pro</span><span><span class="skill-icon" aria-hidden="true">Lf</span>Leaflet</span>
-              <span><span class="skill-icon" aria-hidden="true">EE</span>Google Earth Engine</span><span><span class="skill-icon" aria-hidden="true">SN</span>SNAP</span><span><span class="skill-icon" aria-hidden="true">Py</span>Python</span><span><span class="skill-icon" aria-hidden="true">JS</span>JavaScript</span>
-              <span><span class="skill-icon" aria-hidden="true">PG</span>PostGIS</span><span><span class="skill-icon" aria-hidden="true">GP</span>GeoPandas</span><span><span class="skill-icon" aria-hidden="true">GIS</span>Map dashboards</span>
+            <div class="skills-list" aria-label="GIS tools and technologies">
+              <span><span class="skill-icon" aria-hidden="true">QG</span>QGIS</span>
+              <span><span class="skill-icon" aria-hidden="true">GE</span>Google Earth Pro</span>
+              <span><span class="skill-icon" aria-hidden="true">AP</span>ArcGIS Pro</span>
+              <span><span class="skill-icon" aria-hidden="true">Lf</span>Leaflet</span>
+              <span><span class="skill-icon" aria-hidden="true">EE</span>Google Earth Engine</span>
+              <span><span class="skill-icon" aria-hidden="true">SN</span>SNAP</span>
+              <span><span class="skill-icon" aria-hidden="true">Py</span>Python</span>
+              <span><span class="skill-icon" aria-hidden="true">SQL</span>SQL</span>
+              <span><span class="skill-icon" aria-hidden="true">PG</span>PostGIS</span>
+              <span><span class="skill-icon" aria-hidden="true">GP</span>GeoPandas</span>
+              <span><span class="skill-icon" aria-hidden="true">JS</span>JavaScript</span>
+              <span><span class="skill-icon" aria-hidden="true">GJ</span>GeoJSON</span>
+              <span><span class="skill-icon" aria-hidden="true">WEB</span>Web GIS &amp; map dashboards</span>
             </div>
           </article>
         </div>
