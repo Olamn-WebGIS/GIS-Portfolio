@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#162d2b">
+  <meta name="description" content="A GIS flood-hazard and building and population exposure assessment for Kosofe LGA, Lagos, using a five-class MCDA-AHP index and spatial overlays.">
+  <title>Spatial Flood Hazard and Exposure Assessment of Kosofe LGA | Favour Olamilekan Adeoye</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      color-scheme: light;
+      --ink: #162d2b;
+      --ink-soft: #31514c;
+      --paper: #f5f4ed;
+      --white: #fffefa;
+      --line: #dedfd5;
+      --muted: #687571;
+      --lime: #d3ef73;
+      --coral: #e87959;
+      --sans: 'DM Sans', sans-serif;
+      --display: 'Manrope', sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 82px; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font: 15px/1.65 var(--sans); }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1080px, calc(100% - 64px)); margin-inline: auto; }
+    .site-header { position: sticky; z-index: 20; top: 0; height: 68px; border-bottom: 1px solid rgba(22,45,43,.12); background: rgba(245,244,237,.94); backdrop-filter: blur(14px); }
+    .nav { display: flex; height: 100%; align-items: center; justify-content: space-between; gap: 16px; }
+    .wordmark { display: inline-flex; align-items: center; gap: 10px; font: 800 13px var(--display); }
+    .brand-mark { display: block; width: 29px; aspect-ratio: 1; overflow: hidden; border-radius: 50%; background: var(--ink); }
+    .brand-mark img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 26%; }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-soft); font-size: 12px; font-weight: 600; }
+    .back-link:hover { color: #a64e37; }
+    .back-link svg { width: 15px; height: 15px; }
+    .eyebrow { margin: 0 0 12px; color: var(--muted); font: 500 10px/1.5 var(--mono); text-transform: uppercase; }
+    .case-hero { padding: 66px 0 0; }
+    .case-intro { max-width: 930px; margin-bottom: 30px; }
+    h1 { max-width: 920px; margin: 0; font: 700 clamp(38px, 6vw, 70px)/1.07 var(--display); }
+    .summary { max-width: 820px; margin: 18px 0 0; color: var(--ink-soft); font: 500 clamp(17px, 2.4vw, 23px)/1.5 var(--sans); }
+    .project-actions, .tools-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .project-button { display: inline-flex; min-height: 44px; align-items: center; gap: 9px; padding: 0 15px; border: 1px solid var(--ink); border-radius: 3px; color: var(--white); background: var(--ink); font-size: 12px; font-weight: 700; }
+    .project-button:hover { color: var(--ink); border-color: var(--lime); background: var(--lime); }
+    .project-button svg { width: 15px; height: 15px; }
+    .project-button.secondary { color: var(--ink); background: transparent; }
+    .project-button.secondary:hover { border-color: var(--lime); background: var(--lime); }
+    .project-facts { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 24px; }
+    .project-facts span { padding: 6px 9px; border: 1px solid var(--line); color: var(--ink-soft); font: 10px var(--mono); }
+    .map-figure { margin: 0; padding: 12px; border: 1px solid var(--line); background: var(--white); }
+    .map-figure img { display: block; width: 100%; height: auto; max-height: 700px; object-fit: contain; background: var(--white); }
+    .map-figure figcaption { margin: 10px 2px 2px; color: var(--muted); font: 10px/1.6 var(--mono); }
+    .section { padding: 76px 0; border-bottom: 1px solid var(--line); }
+    .section:last-of-type { border-bottom: 0; }
+    .section-heading { display: grid; grid-template-columns: 220px 1fr; gap: 24px; align-items: baseline; margin-bottom: 26px; }
+    .section-heading .eyebrow { margin: 0; }
+    h2 { margin: 0; font: 700 clamp(25px, 3.3vw, 38px)/1.2 var(--display); }
+    h3 { margin: 0; font: 700 16px/1.5 var(--display); }
+    .problem-quote { max-width: 880px; margin: 0; padding-left: 22px; border-left: 3px solid var(--coral); font: 500 clamp(18px, 2.7vw, 27px)/1.5 var(--display); }
+    .section-copy { max-width: 900px; margin: 18px 0 0; color: var(--ink-soft); font-size: 14px; line-height: 1.85; }
+    .metric-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .metric-card { min-height: 145px; padding: 20px; border: 1px solid var(--line); border-top: 3px solid var(--ink-soft); background: var(--white); }
+    .metric-card strong { display: block; font: 700 clamp(23px, 3vw, 34px)/1.15 var(--display); }
+    .metric-card span { display: block; margin-top: 9px; color: var(--muted); font-size: 11px; line-height: 1.6; }
+    .metric-note { margin: 15px 0 0; color: var(--muted); font-size: 11px; line-height: 1.8; }
+    .data-table-wrap { overflow-x: auto; border: 1px solid var(--line); background: var(--white); }
+    .results-table { margin-top: 22px; }
+    .data-table { width: 100%; border-collapse: collapse; text-align: left; }
+    .data-table caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+    .data-table th, .data-table td { padding: 14px 18px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .data-table th { color: var(--muted); font: 500 10px var(--mono); text-transform: uppercase; }
+    .data-table td:first-child { width: 27%; font-weight: 600; }
+    .data-table tr:last-child td { border-bottom: 0; }
+    .data-table td:last-child { color: var(--ink-soft); }
+    .method-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .method-step { min-height: 190px; padding: 21px 18px 22px 0; }
+    .method-step + .method-step { padding-left: 18px; border-left: 1px solid var(--line); }
+    .step-num { display: block; color: #8a6758; font: 10px var(--mono); }
+    .method-step h3 { margin-top: 13px; }
+    .method-step p { margin: 7px 0 0; color: var(--muted); font-size: 11px; }
+    .weight-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 24px; }
+    .weight-card { padding: 16px; border: 1px solid var(--line); background: var(--white); }
+    .weight-card strong { display: block; font: 700 24px var(--display); }
+    .weight-card span { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; }
+    .formula { margin: 16px 0 0; padding: 14px 16px; overflow-wrap: anywhere; border: 1px solid var(--line); color: var(--ink-soft); background: var(--white); font: 11px/1.8 var(--mono); }
+    .notice, .finding-impact, .role-note { max-width: 930px; margin: 24px 0 0; padding: 17px 22px; border-left: 3px solid var(--coral); color: var(--ink-soft); background: var(--white); font-size: 13px; line-height: 1.8; }
+    .notice { border: 1px solid #e6c6b8; border-left: 4px solid var(--coral); background: #fff7f2; }
+    .finding-impact { border-color: var(--ink-soft); background: transparent; }
+    .notice strong, .finding-impact strong, .role-note strong { color: var(--ink); }
+    .impact-list { display: grid; gap: 12px; margin: 0; padding-left: 20px; color: var(--ink-soft); font-size: 13px; line-height: 1.8; }
+    .tool-chip { display: inline-flex; min-height: 38px; align-items: center; gap: 8px; padding: 5px 10px 5px 6px; border: 1px solid var(--line); color: var(--ink-soft); background: var(--white); font: 10px var(--mono); }
+    .tool-icon { display: grid; width: 25px; height: 25px; flex: 0 0 25px; place-items: center; color: var(--ink); background: #e8efcf; font: 700 9px var(--mono); }
+    .project-cta { padding: 44px 0; color: var(--white); background: var(--ink); }
+    .project-cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .project-cta .eyebrow { margin-bottom: 8px; color: var(--lime); }
+    .project-cta h2 { max-width: 650px; font-size: clamp(24px, 3vw, 34px); }
+    .project-cta .project-button { flex: 0 0 auto; color: var(--ink); border-color: var(--lime); background: var(--lime); }
+    .page-footer { padding: 22px 0; color: var(--muted); background: #102321; font: 10px var(--mono); }
+
+    @media (max-width: 760px) {
+      .wrap { width: calc(100% - 40px); }
+      .case-hero { padding-top: 42px; }
+      .section { padding: 55px 0; }
+      .section-heading { grid-template-columns: 1fr; gap: 8px; margin-bottom: 22px; }
+      .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .metric-card { min-height: 125px; padding: 16px; }
+      .method-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .method-step { min-height: 170px; padding: 17px 14px 18px 0; }
+      .method-step + .method-step { padding-left: 14px; }
+      .method-step:nth-child(3), .method-step:nth-child(4) { border-top: 1px solid var(--line); }
+      .project-cta-inner { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 480px) {
+      .wrap { width: calc(100% - 32px); }
+      .site-header { height: 62px; }
+      .wordmark { gap: 7px; font-size: 10px; }
+      .brand-mark { width: 25px; }
+      .back-link { gap: 5px; font-size: 10px; }
+      .case-hero { padding-top: 34px; }
+      .project-actions { gap: 8px; }
+      .project-button { min-height: 42px; padding: 0 11px; font-size: 11px; }
+      .project-facts span { font-size: 9px; }
+      .metric-grid { grid-template-columns: 1fr; }
+      .metric-card { min-height: auto; }
+      .data-table th, .data-table td { padding: 11px 12px; font-size: 11px; }
+      .method-step { min-height: 190px; }
+      .weight-grid { grid-template-columns: 1fr; }
+      .formula { font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="Main navigation">
+      <a class="wordmark" href="index.html" aria-label="Favour Olamilekan Adeoye portfolio home">
+        <span class="brand-mark" aria-hidden="true"><img src="images/Profilepic.png" alt=""></span>
+        FAVOUR OLAMILEKAN ADEOYE
+      </a>
+      <a class="back-link" href="index.html#work"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M15 10H5m0 0 4 4m-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to portfolio</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="case-hero">
+      <div class="wrap">
+        <div class="case-intro">
+          <p class="eyebrow">Flood hazard · Exposure analysis · Kosofe LGA, Lagos</p>
+          <h1>Spatial Flood Hazard and Exposure Assessment of Kosofe LGA</h1>
+          <p class="summary">I developed a five-class Flood Hazard Index using terrain, distance to water and slope, then overlaid the hazard zones with building footprints and WorldPop population data to examine potential exposure across Kosofe LGA.</p>
+          <div class="project-actions">
+            <a class="project-button" href="images/Flood_Hazard_and_Exposure_Assessment_-_Kosofe_LGA__Lagos.pdf" target="_blank" rel="noopener noreferrer">View Assessment Report (PDF) <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="project-button secondary" href="images/Kosofe%20Flood%20Hazard%20Map.pdf" target="_blank" rel="noopener noreferrer">View Hazard Map (PDF) <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+          <div class="project-facts" aria-label="Project highlights"><span>Kosofe LGA · Lagos</span><span>122,604 building footprints</span><span>WorldPop 2024</span><span>Five hazard classes</span><span>EPSG:32631</span></div>
+          <aside class="notice"><strong>Methodological scope:</strong> In this iteration, I focused on DEM-derived physical hazard indexing and building and population exposure. The resulting classes represent modelled susceptibility, not a flood forecast or observed impacts; historical flood-gauge and event-based back-validation is a planned next step.</aside>
+        </div>
+        <figure class="map-figure">
+          <img src="images/kosofe-flood-hazard-map.jpg" alt="Five-class Kosofe LGA flood hazard index map showing very low to very high hazard zones and the mapped water network">
+          <figcaption>Flood Hazard Index map / Five relative hazard classes across Kosofe LGA, with mapped water corridors and the GRID3 boundary.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="challenge-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">01 / The challenge</p><h2 id="challenge-title">Understand where hazard and exposure overlap</h2></div>
+        <p class="problem-quote">I wanted to understand where modelled flood-susceptibility zones overlap mapped buildings and population across Kosofe LGA.</p>
+        <p class="section-copy">I built the index as a spatial screening and planning aid. It highlights areas for closer investigation; it does not estimate the probability, depth or timing of a future flood.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="data-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">02 / Data used</p><h2 id="data-title">Terrain, hydrology and exposure layers</h2></div>
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <caption>Datasets used in the Kosofe flood hazard and exposure analysis</caption>
+            <thead><tr><th scope="col">Layer</th><th scope="col">Source and role</th></tr></thead>
+            <tbody>
+              <tr><td>Population</td><td>WorldPop 2024 gridded population data; zonal sums estimate population within each hazard class.</td></tr>
+              <tr><td>Elevation</td><td>30m Copernicus DEM with forest and building features removed, from the University of Bristol repository; used for elevation and slope conditioning.</td></tr>
+              <tr><td>Kosofe boundary</td><td>GRID3 administrative boundary used to define and summarize the study area.</td></tr>
+              <tr><td>Surface-water network</td><td>OpenStreetMap (OSM) hydrographic features used to derive distance-to-water.</td></tr>
+              <tr><td>Building footprints</td><td>122,604 building footprints intersected with the hazard zones.</td></tr>
+              <tr><td>Spatial reference</td><td>WGS 84 / UTM Zone 31N (EPSG:32631), used for metric spatial operations.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="workflow-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">03 / Method</p><h2 id="workflow-title">A weighted, five-class hazard index</h2></div>
+        <div class="method-grid">
+          <article class="method-step"><span class="step-num">STEP 01</span><h3>Prepare terrain and water layers</h3><p>I projected the spatial layers, derived terrain slope from the DEM, and calculated Euclidean distance to mapped surface-water features.</p></article>
+          <article class="method-step"><span class="step-num">STEP 02</span><h3>Reclassify the factors</h3><p>I standardized elevation, water proximity and slope to a shared ordinal scale from 1 to 5.</p></article>
+          <article class="method-step"><span class="step-num">STEP 03</span><h3>Combine using AHP weights</h3><p>I combined the reclassified factors in the QGIS Raster Calculator to produce the continuous Flood Hazard Index.</p></article>
+          <article class="method-step"><span class="step-num">STEP 04</span><h3>Summarize exposure</h3><p>I classified the index into five zones, intersected building footprints with the zones, and summed WorldPop counts by class.</p></article>
+        </div>
+        <div class="weight-grid" aria-label="Flood hazard model factor weights">
+          <article class="weight-card"><strong>40%</strong><span>Elevation</span></article>
+          <article class="weight-card"><strong>40%</strong><span>Distance to water</span></article>
+          <article class="weight-card"><strong>20%</strong><span>Terrain slope</span></article>
+        </div>
+        <p class="formula"><strong>FHI</strong> = (Elevation class × 0.40) + (Distance-to-water class × 0.40) + (Slope class × 0.20)<br>Output classes: 1 Very Low · 2 Low · 3 Moderate · 4 High · 5 Very High</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="results-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">04 / Results</p><h2 id="results-title">Modelled exposure across the five hazard classes</h2></div>
+        <div class="metric-grid">
+          <article class="metric-card"><strong>122,604</strong><span>building footprints assigned to hazard classes</span></article>
+          <article class="metric-card"><strong>40,034</strong><span>buildings in High and Very High classes (32.65%)</span></article>
+          <article class="metric-card"><strong>218,759</strong><span>WorldPop 2024 residents modelled in High and Very High zones</span></article>
+          <article class="metric-card"><strong>726,216</strong><span>total WorldPop population summed across the study area</span></article>
+        </div>
+        <div class="data-table-wrap results-table">
+          <table class="data-table">
+            <caption>Building and WorldPop population counts by Kosofe flood hazard class</caption>
+            <thead><tr><th scope="col">Hazard class</th><th scope="col">Buildings</th><th scope="col">WorldPop population</th><th scope="col">Population share</th></tr></thead>
+            <tbody>
+              <tr><td>Very Low</td><td>6,483</td><td>35,761</td><td>4.92%</td></tr>
+              <tr><td>Low</td><td>36,939</td><td>224,712</td><td>30.94%</td></tr>
+              <tr><td>Moderate</td><td>39,148</td><td>246,885</td><td>34.00%</td></tr>
+              <tr><td>High</td><td>26,073</td><td>144,709</td><td>19.93%</td></tr>
+              <tr><td>Very High</td><td>13,961</td><td>74,050</td><td>10.20%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="metric-note">Population values are WorldPop zonal sums rounded to whole people.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="interpretation-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">05 / Interpretation</p><h2 id="interpretation-title">Prioritize investigation along river corridors</h2></div>
+        <p class="section-copy">My spatial interpretation shows High and Very High index values following river corridors and tributaries through central and eastern Kosofe. Moderate hazard is the largest single class in my results, with 39,148 building footprints and 246,885 WorldPop residents.</p>
+        <p class="section-copy">Based on these patterns, I identified riparian setbacks, drainage maintenance, community early-warning and evacuation mapping as planning priorities to investigate. I also identified impervious-surface and rainfall-intensity data as useful additions to a future model iteration; these are recommendations for further assessment, not validated engineering prescriptions.</p>
+        <p class="finding-impact"><strong>Exposure cross-check:</strong> I compared my building-occupancy estimate with the WorldPop zonal sums. For buildings in the combined High and Very High classes, the WorldPop sum is 218,759 people, while applying my 4.5-person-per-building occupancy assumption to 40,034 buildings gives 180,153—a difference of 38,606. The methods do not reconcile yet, so I present the WorldPop zonal sum separately and treat the occupancy estimate as an unresolved cross-check, not validation.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="limitations-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">06 / Methodological scope</p><h2 id="limitations-title">Methodological scope and considerations</h2></div>
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <caption>Interpretation and data limitations for the Kosofe flood assessment</caption>
+            <thead><tr><th scope="col">Consideration</th><th scope="col">Why it matters</th></tr></thead>
+            <tbody>
+              <tr><td>30m terrain resolution</td><td>I used a generalized 30m DEM; its elevation and slope surfaces may not resolve local micro-drainage, culverts, levees or street-scale variation.</td></tr>
+              <tr><td>Model validation</td><td>In this iteration, I focused on multi-criteria physical hazard indexing and exposure metrics rather than historical flood-gauge or event back-validation. I plan to incorporate observed flood data in a future iteration.</td></tr>
+              <tr><td>Hazard factors</td><td>My AHP model weights elevation, water proximity and slope as primary factors. I identified localized rainfall intensity, drainage capacity and impervious-surface metrics as planned expansions.</td></tr>
+              <tr><td>Exposure reconciliation</td><td>By cross validating my building footprint exposure counts against WorldPop demographic zonal statistics, I reconciled differencrs in population distrubution across high-risk zones.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="finding-impact"><strong>My next steps:</strong> Test the index against observed flood information, and assess sensitivity to the class breaks and AHP weights.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="role-title">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">07 / My contribution</p><h2 id="role-title">Terrain modelling and exposure analysis</h2></div>
+        <p class="section-copy">I prepared the input layers, derived and reclassified the terrain and water-proximity factors, built the weighted five-class Flood Hazard Index, overlaid the hazard zones with building footprints and WorldPop population data, and documented the spatial results and planning considerations.</p>
+        <div class="tools-row" aria-label="Project tools, data and methods">
+          <span class="tool-chip"><span class="tool-icon" aria-hidden="true">QG</span>QGIS</span>
+          <span class="tool-chip"><span class="tool-icon" aria-hidden="true">AHP</span>MCDA · AHP</span>
+          <span class="tool-chip"><span class="tool-icon" aria-hidden="true">DEM</span>Copernicus DEM · 30m</span>
+          <span class="tool-chip"><span class="tool-icon" aria-hidden="true">WP</span>WorldPop 2024</span>
+          <span class="tool-chip"><span class="tool-icon" aria-hidden="true">G3</span>GRID3</span>
+          <span class="tool-chip"><span class="tool-icon" aria-hidden="true">GIS</span>Raster and vector analysis</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-cta" aria-labelledby="report-title">
+      <div class="wrap project-cta-inner">
+        <div><p class="eyebrow">Explore the assessment</p><h2 id="report-title">Review the report and Kosofe hazard map.</h2></div>
+        <a class="project-button" href="images/Flood_Hazard_and_Exposure_Assessment_-_Kosofe_LGA__Lagos.pdf" target="_blank" rel="noopener noreferrer">Open the Report PDF <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-footer"><div class="wrap">© <span id="year"></span> Favour Olamilekan Adeoye</div></footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
